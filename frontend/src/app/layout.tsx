@@ -1,0 +1,48 @@
+/**
+ * @description: This file contains main layout of the app. This layout will be part of every page.
+ *               To make redux store working, it is necessary wrape other layouts in this main layout.
+ */
+import type { Metadata } from "next";
+import localFont from "next/font/local";
+import "./globals.css";
+import StoreProvider from "./StoreProvider";
+import Header from "../components/header";
+import Footer from "../components/footer";
+
+const openSans = localFont({
+  src: "./fonts/OpenSans.ttf",
+  variable: "--font-open-sans",
+  weight: "100 900",
+});
+const openSansItalic = localFont({
+  src: "./fonts/OpenSans-Italic.ttf",
+  variable: "--font-open-sans-italic",
+  weight: "100 900",
+});
+
+export const metadata: Metadata = {
+  title: "green-market-place",
+  description:
+    "This application is created in Specialization in Web Technology project.",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en">
+      <body 
+        className={`${openSans.variable} ${openSansItalic.variable} antialiased`}
+        suppressHydrationWarning={true}
+      >
+        <StoreProvider>
+          <Header/>
+            {children}
+          <Footer/>
+        </StoreProvider>
+      </body>
+    </html>
+  );
+}

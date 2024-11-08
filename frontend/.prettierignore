@@ -1,0 +1,6 @@
+.next
+.husky
+dist
+build
+coverage
+node_modules

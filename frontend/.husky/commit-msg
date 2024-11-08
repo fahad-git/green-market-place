@@ -1,0 +1,34 @@
+
+echo "Checking for commit message..."
+# Read the commit message from stdin (the file path passed as the argument)
+commit_msg=$(cat "$1")
+
+# Split the commit message into ticket number and message
+IFS=':' read -r ticket_number msg <<< "$commit_msg"
+
+# Define the regex for ticket format
+header_regex="^GMP-[0-9]+"
+
+# Check if the ticket_number matches the header regex
+if ! [[ $ticket_number =~ $header_regex ]]; then
+    echo "Error: TICKET-CODE in commit is missing or incorrect. For example: GMP-1234: Bug fix"
+    exit 1
+fi
+
+
+# Split the commit message to validate its content
+commit_message_and_title=(${commit_msg//:/ })
+if [ ${#commit_message_and_title[@]} -eq 1 ]; then
+    echo "Error: Commit message is required"
+    exit 1
+fi
+
+commit_message=${commit_message_and_title[1]}
+
+# Check if the commit message is greater than 4 characters
+if [ ${#commit_message} -le 4 ]; then
+    echo "Error: Commit message should be greater than 4 characters"
+    exit 1
+fi
+
+echo "Commit message is valid."
