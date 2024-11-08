@@ -12,6 +12,7 @@ export default function Footer() {
           <h4 className="text-lg font-semibold"><strong>About Us</strong></h4>
           <p className="text-sm mt-2">
             We are dedicated to providing the best quality products and service to our customers.
+            <a href="https://www.flaticon.com/free-icons/user" title="user icons">User icons created by kmg design - Flaticon</a>
           </p>
         </div>
 

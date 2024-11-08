@@ -9,7 +9,9 @@ import {
   LOG_OUT,
   LOG_IN,
 } from "./actions-constants";
-import { IState, IActions } from "./interfaces";
+import { IState, IActions, IStateUser } from "./interfaces";
+import APIs from "../apis/auth-apis";
+import authReducer from "./slices/authSlice";
 
 export const initialState: IState = {
   user: {
@@ -21,6 +23,7 @@ export const initialState: IState = {
     refreshToken: "",
   },
 };
+
 
 /**
  *
@@ -48,16 +51,27 @@ export const defaultReducer = (
  * @param action: action parameter holds the type of action supported in this reducer.
  * @returns it returns updated value for auth for store to update.
  */
-const authReducer = (auth: boolean = false, action: IActions) => {
-  switch (action.type) {
-    case LOG_IN:
-      return true;
-    case LOG_OUT:
-      return false;
-    default:
-      return auth;
-  }
-};
+// const authReducer = async (user: IStateUser | {} = {}, action: IActions) => {
+//   console.log("Login user: ", user);
+//   console.log("Action: ", action);
+//   switch (action.type) {
+//     case LOG_IN:
+//       //API call
+//       console.log("=============")
+//       const credentials = action.payload;
+//       const response: any = await APIs.loginUser(credentials)
+//       console.log(response)
+//       if(response.status === 200){
+//         return response.data;
+//       } else {
+//         return {};
+//       }
+//     case LOG_OUT:
+//       return {};
+//     default:
+//       return user;
+//   }
+// };
 
 /**
  *
@@ -78,7 +92,7 @@ export const counterReducer = (countState: number = 0, action: IActions) => {
  * @description: this combines all the reducers into one to pass it to the redux store as a single entity.
  */
 const rootReducer = combineReducers({
-  user: defaultReducer,
+  default: defaultReducer,
   auth: authReducer,
   count: counterReducer,
 });
