@@ -1,13 +1,12 @@
 // components/RegisterModal.js
+"use client"
 import { useState } from 'react';
-import { useAppDispatch } from '../handlers/redux/hooks';
 import AUTH_APIs from '../handlers/apis/auth-apis';
 import FILE_APIs from '../handlers/apis/file-apis';
+import { toast } from 'react-toastify';
 
 export default function RegisterModal({ isOpen, onClose }: any) {
-  if (!isOpen) return null;
-  const dispatch = useAppDispatch();
-
+  
   const [formData, setFormData]: any = useState({
     name: '',
     email: '',
@@ -20,7 +19,9 @@ export default function RegisterModal({ isOpen, onClose }: any) {
   });
   
   const [errors, setErrors]: any = useState({});
-
+  //moving it after hook diclaration.
+  if (!isOpen) return null;
+  
   const handleChange = (e: any) => {
     const { name, value, type, checked, files } = e.target;
     setFormData((prev:any) => ({
@@ -51,7 +52,7 @@ export default function RegisterModal({ isOpen, onClose }: any) {
 
       if(uploadFileResponse.status === 400){
         // toast error
-        console.error("Registration error:", uploadFileResponse.data.error);
+        toast.error(uploadFileResponse.data.error);
         return;
       }
 
@@ -68,15 +69,19 @@ export default function RegisterModal({ isOpen, onClose }: any) {
       const registerResponse = await AUTH_APIs.registerUser(registrationData);
       
       if(registerResponse.status === 200 || registerResponse.status === 201){
-        // router.push("/login");
+        // registered successfully.
+        toast.success("User registered successfully");
         onClose();
       } else {
         //print error.
         await FILE_APIs.deleteFile(registrationData["avatar"].filename);
+        toast.error("Failed to register user.");
       }
 
-    } catch (error) {
-      console.error("Registration error:", error);
+    } catch (error: any) {
+      toast.error(error.response.data.message, {
+        position: "top-right"
+      });
     }
   };
 

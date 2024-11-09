@@ -10,7 +10,11 @@ exports.register = async (req, res) => {
     const userRes = await user.save();
     res.status(201).json({ message: 'User registered successfully' });
   } catch(e){
-    res.status(500).json({ message: "Failed to register user."})
+    console.log(e.message);
+    if(e.message.includes("duplicate key error"))
+      res.status(409).json({ message: "Email already exists."})
+    else
+      res.status(500).json({ message: "Failed to register user."})
   }
 };
 

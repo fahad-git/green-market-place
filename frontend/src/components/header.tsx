@@ -9,21 +9,22 @@ import Image from 'next/image';
 import SignInModal from './signinModal';
 import RegisterModal from './registerModal';
 import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
 
 export default function Header() {
   const [searchTerm, setSearchTerm] = useState('');
   const [isSignInOpen, setSignInOpen] = useState(false);
   const [isRegisterOpen, setRegisterOpen] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
+  // const [isMounted, setIsMounted] = useState(false);
   const [isDropdownOpen, setDropdownOpen] = useState(false); // Dropdown state
   
   const user = useSelector((state: any) => state.auth.user);
   const dispatch = useDispatch();
   const router = useRouter();
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, [])
+  // useEffect(() => {
+  //   setIsMounted(true);
+  // }, [])
 
   // Add useEffect to close dropdown when user logs in or out
   useEffect(() => {
@@ -43,7 +44,7 @@ export default function Header() {
     router.push('/'); // Redirect to the home page after logout
   };
 
-  if (!isMounted) return null;
+  // if (!isMounted) return null;
 
   return (
     <header className="bg-green-600 shadow-md py-4">
@@ -127,8 +128,13 @@ export default function Header() {
               </button>
             </div>
           )}
-          <Link href="/cart" className="hover:text-gray-200 text-white">
-            Cart
+          <Link href="/cart" className="hover:text-gray-200 text-white">            
+            <Image
+              src={"/images/cart.png"}
+              alt={"Cart"}
+              width={40}
+              height={40}
+              />
           </Link>
         </div>
       </div>

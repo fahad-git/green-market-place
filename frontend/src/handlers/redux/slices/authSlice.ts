@@ -9,7 +9,7 @@ export const loginUser = createAsyncThunk(
   async (credentials:any, { rejectWithValue }) => {
     try {
       const response = await APIs.loginUser(credentials);
-      let user = response.data;
+      const user = response.data;
       if(user?.avatar){
         user.avatar = JSON.parse(user.avatar);
         user.avatar.avatarUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/file/${user.avatar?.filename}`;

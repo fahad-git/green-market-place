@@ -3,9 +3,6 @@
  */
 
 "use client";
-import { increaseCountState } from "@/src/handlers/redux/actions";
-import { useAppDispatch, useAppSelector } from "@/src/handlers/redux/hooks";
-
 export default function Home() {
 
   return (
