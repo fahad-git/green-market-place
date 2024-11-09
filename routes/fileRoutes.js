@@ -9,6 +9,7 @@ const router = express.Router();
  * /api/file/upload:
  *   post:
  *     summary: Upload a file
+ *     tags: [Files]
  *     description: Upload a file to the server
  *     requestBody:
  *       content:
@@ -34,6 +35,7 @@ router.post('/upload', uploadMiddleware.single('file'), fileUpload);
  * /api/file/{filename}:
  *   get:
  *     summary: Get a file by filename
+ *     tags: [Files]
  *     description: Fetch a file from the server by its filename
  *     parameters:
  *       - name: filename
@@ -61,6 +63,7 @@ router.get('/:filename', getFile);
  * /api/file/{filename}:
  *   delete:
  *     summary: Delete a file by filename
+ *     tags: [Files]
  *     description: Delete a file from the server by its filename
  *     parameters:
  *       - name: filename

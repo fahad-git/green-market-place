@@ -62,7 +62,7 @@ export default function Header() {
 
         {/* Navigation */}
         <nav className="hidden md:flex space-x-6">
-          <Link href="/shop" className="hover:text-gray-800 text-white">Shop</Link>
+          <Link href="/sustainability" className="hover:text-gray-800 text-white">Sustainability</Link>
           <Link href="/about" className="hover:text-gray-800 text-white">About</Link>
           <Link href="/contact" className="hover:text-gray-800 text-white">Contact</Link>
         </nav>
