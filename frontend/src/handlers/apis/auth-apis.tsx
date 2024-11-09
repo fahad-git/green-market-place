@@ -10,13 +10,13 @@ const loginUser = async (credentials: object) => {
 
 const registerUser = async (user: any) => {
     return await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/register`, user, {
-        headers: { 'Content-Type': 'multipart/form-data' },
+        headers: { 'Content-Type': 'application/json' },
       });
 }
 
-const APIs = {
+const AUTH_APIs = {
     loginUser,
     registerUser
 }
 
-export default APIs;
+export default AUTH_APIs;

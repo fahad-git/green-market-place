@@ -1,11 +1,11 @@
 // components/RegisterModal.js
 import { useState } from 'react';
-import axios from 'axios';
 import { useAppDispatch } from '../handlers/redux/hooks';
-import APIs from '../handlers/apis/auth-apis';
-import { useRouter } from 'next/navigation';
+import AUTH_APIs from '../handlers/apis/auth-apis';
+import FILE_APIs from '../handlers/apis/file-apis';
 
 export default function RegisterModal({ isOpen, onClose }: any) {
+  if (!isOpen) return null;
   const dispatch = useAppDispatch();
 
   const [formData, setFormData]: any = useState({
@@ -16,13 +16,10 @@ export default function RegisterModal({ isOpen, onClose }: any) {
     phone: '',
     address: '',
     agreeToTerms: false,
-    avatar: null,
+    file: null,
   });
   
   const [errors, setErrors]: any = useState({});
-  const router = useRouter();
-
-  if (!isOpen) return null;
 
   const handleChange = (e: any) => {
     const { name, value, type, checked, files } = e.target;
@@ -48,20 +45,36 @@ export default function RegisterModal({ isOpen, onClose }: any) {
     if (!validateForm()) return;
 
     try {
-      const registrationData = new FormData();
-      Object.keys(formData).forEach((key) => registrationData.append(key, formData[key]));
+      const fileFormData = new FormData();
+      fileFormData.append("file", formData["file"], formData["file"].name);
+      const uploadFileResponse = await FILE_APIs.uploadFile(fileFormData);
 
-      console.log(registrationData);
+      if(uploadFileResponse.status === 400){
+        // toast error
+        console.error("Registration error:", uploadFileResponse.data.error);
+        return;
+      }
 
-      const response = await APIs.registerUser(registrationData);
+      const registrationData: any = new FormData();
+
+      registrationData.append("name", formData["name"]);
+      registrationData.append("email", formData["email"]);
+      registrationData.append("address", formData["address"]);
+      registrationData.append("password", formData["password"]);
+      registrationData.append("phone", formData["phone"]);
+      registrationData.append("agreeToTerms", formData["agreeToTerms"]);
+      registrationData.append("avatar", JSON.stringify(uploadFileResponse.data.file));
+
+      const registerResponse = await AUTH_APIs.registerUser(registrationData);
       
-      // if(response.status === 200){
-      //   router.push("/login");
-      // }
+      if(registerResponse.status === 200 || registerResponse.status === 201){
+        // router.push("/login");
+        onClose();
+      } else {
+        //print error.
+        await FILE_APIs.deleteFile(registrationData["avatar"].filename);
+      }
 
-
-      // dispatch(setUser(response.data.user)); // Save user in Redux
-      onClose();
     } catch (error) {
       console.error("Registration error:", error);
     }
@@ -132,7 +145,7 @@ export default function RegisterModal({ isOpen, onClose }: any) {
             <label className="block text-sm font-medium text-gray-700">Upload Avatar</label>
             <input
               type="file"
-              name="avatar"
+              name="file"
               onChange={handleChange}
               className="mt-1 w-full"
             />

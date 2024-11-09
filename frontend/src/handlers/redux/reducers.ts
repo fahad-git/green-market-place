@@ -10,7 +10,7 @@ import {
   LOG_IN,
 } from "./actions-constants";
 import { IState, IActions, IStateUser } from "./interfaces";
-import APIs from "../apis/auth-apis";
+import AUTH_APIs from "../apis/auth-apis";
 import authReducer from "./slices/authSlice";
 
 export const initialState: IState = {
@@ -18,9 +18,11 @@ export const initialState: IState = {
     name: "",
     email: "",
     password: "",
-    username: "",
     accessToken: "",
     refreshToken: "",
+    phone: "",
+    address: "",
+    avatar: ""
   },
 };
 

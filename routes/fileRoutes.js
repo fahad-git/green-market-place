@@ -3,8 +3,6 @@ const uploadMiddleware = require('../middlewares/fileMiddleware');
 const { getFile, fileUpload, deleteFile } = require('../controllers/fileController');
 const router = express.Router();
 
-
-
 // Route to upload a file
 /**
  * @swagger
@@ -60,7 +58,7 @@ router.get('/:filename', getFile);
 // Route to delete a file by filename
 /**
  * @swagger
- * /api//file/{filename}:
+ * /api/file/{filename}:
  *   delete:
  *     summary: Delete a file by filename
  *     description: Delete a file from the server by its filename

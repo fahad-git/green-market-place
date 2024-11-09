@@ -23,7 +23,14 @@ export default function Header() {
 
   useEffect(() => {
     setIsMounted(true);
-  }, []);
+  }, [])
+
+  // Add useEffect to close dropdown when user logs in or out
+  useEffect(() => {
+    if (isDropdownOpen) {
+      setDropdownOpen(false);
+    }
+  }, [user]);
 
   const handleSearch = (e: any) => {
     e.preventDefault();
@@ -83,7 +90,7 @@ export default function Header() {
                 className="flex items-center space-x-2 text-white focus:outline-none"
               >
                 <Image
-                  src={user.avatarUrl || "/images/default-avatar.png"}
+                  src={user?.avatar?.avatarUrl || "/images/default-avatar.png"}
                   alt={`${user.name}'s avatar`}
                   width={40}
                   height={40}
