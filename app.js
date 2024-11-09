@@ -12,6 +12,7 @@ var usersRouter = require('./routes/users');
 var productsRouter = require('./routes/productRoutes');
 var authRouter = require('./routes/authRoutes');
 var orderRouter = require('./routes/orderRoutes');
+var fileRouter = require('./routes/fileRoutes');
 
 /**
  * Setting up database
@@ -44,7 +45,8 @@ app.use(express.static(path.join(__dirname, 'public')));
  */
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/api/file', fileRouter)
+app.use('/api/users', usersRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/products', productsRouter);
 app.use('/api/orders', orderRouter);

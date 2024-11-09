@@ -17,7 +17,7 @@ export default function SignInModal({ isOpen, onClose }: any) {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     const email = e.target.email.value;
-    const password = e.target.email.value;
+    const password = e.target.password.value;
     const validation = loginValidator(email, password);
     if(validation.error){
       errors.email = validation.email;

@@ -17,7 +17,9 @@ export interface IStateUser {
   name: string;
   email: string;
   password: string;
-  username: string;
+  phone: string;
+  address: string;
+  avatar: string;
   accessToken: string;
   refreshToken: string;
 }

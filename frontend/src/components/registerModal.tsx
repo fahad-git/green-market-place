@@ -1,39 +1,159 @@
 // components/RegisterModal.js
 import { useState } from 'react';
+import axios from 'axios';
+import { useAppDispatch } from '../handlers/redux/hooks';
+import APIs from '../handlers/apis/auth-apis';
+import { useRouter } from 'next/navigation';
 
 export default function RegisterModal({ isOpen, onClose }: any) {
+  const dispatch = useAppDispatch();
+
+  const [formData, setFormData]: any = useState({
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    phone: '',
+    address: '',
+    agreeToTerms: false,
+    avatar: null,
+  });
+  
+  const [errors, setErrors]: any = useState({});
+  const router = useRouter();
+
   if (!isOpen) return null;
+
+  const handleChange = (e: any) => {
+    const { name, value, type, checked, files } = e.target;
+    setFormData((prev:any) => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : files ? files[0] : value,
+    }));
+  };
+
+  const validateForm = () => {
+    const newErrors: any = {};
+    if (!formData.name) newErrors.name = 'Name is required';
+    if (!formData.email) newErrors.email = 'Email is required';
+    if (formData.password.length < 8) newErrors.password = 'Password must be at least 8 characters';
+    if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = 'Passwords do not match';
+    if (!formData.agreeToTerms) newErrors.agreeToTerms = 'You must agree to the terms';
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    if (!validateForm()) return;
+
+    try {
+      const registrationData = new FormData();
+      Object.keys(formData).forEach((key) => registrationData.append(key, formData[key]));
+
+      console.log(registrationData);
+
+      const response = await APIs.registerUser(registrationData);
+      
+      // if(response.status === 200){
+      //   router.push("/login");
+      // }
+
+
+      // dispatch(setUser(response.data.user)); // Save user in Redux
+      onClose();
+    } catch (error) {
+      console.error("Registration error:", error);
+    }
+  };
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <div className="bg-white p-6 rounded-md shadow-lg max-w-sm w-full">
+      <div className="bg-white p-8 rounded-md shadow-lg max-w-md w-full">
         <h2 className="text-2xl font-semibold mb-4">Register</h2>
-        
-        <form>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">Username</label>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          
+          <InputField
+            label="Name"
+            name="name"
+            type="text"
+            value={formData.name}
+            error={errors.name}
+            onChange={handleChange}
+          />
+          
+          <InputField
+            label="Email"
+            name="email"
+            type="email"
+            value={formData.email}
+            error={errors.email}
+            onChange={handleChange}
+          />
+
+          <InputField
+            label="Phone Number"
+            name="phone"
+            type="text"
+            value={formData.phone}
+            onChange={handleChange} 
+            error={errors.phone}         
+          />
+
+          <InputField
+            label="Address"
+            name="address"
+            type="text"
+            value={formData.address}
+            error={errors.address}
+            onChange={handleChange}
+          />
+
+
+          <InputField
+            label="Password"
+            name="password"
+            type="password"
+            value={formData.password}
+            error={errors.password}
+            onChange={handleChange}
+          />
+
+          <InputField
+            label="Confirm Password"
+            name="confirmPassword"
+            type="password"
+            value={formData.confirmPassword}
+            error={errors.confirmPassword}
+            onChange={handleChange}
+          />
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Upload Avatar</label>
             <input
-              type="text"
-              className="mt-1 px-3 py-2 border border-gray-300 rounded-md w-full"
-              placeholder="Username"
+              type="file"
+              name="avatar"
+              onChange={handleChange}
+              className="mt-1 w-full"
             />
           </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">Email</label>
+
+          <div className="flex items-center">
             <input
-              type="email"
-              className="mt-1 px-3 py-2 border border-gray-300 rounded-md w-full"
-              placeholder="Email"
+              type="checkbox"
+              name="agreeToTerms"
+              checked={formData.agreeToTerms}
+              onChange={handleChange}
+              className="h-4 w-4 text-green-600 border-gray-300 rounded"
             />
+            <label className="ml-2 block text-sm text-gray-900">
+              I agree to the Terms and Conditions
+            </label>
           </div>
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700">Password</label>
-            <input
-              type="password"
-              className="mt-1 px-3 py-2 border border-gray-300 rounded-md w-full"
-              placeholder="Password"
-            />
-          </div>
+          {errors.agreeToTerms && (
+            <p className="text-red-500 text-xs">{errors.agreeToTerms}</p>
+          )}
+
           <button
             type="submit"
             className="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700 transition"
@@ -44,11 +164,27 @@ export default function RegisterModal({ isOpen, onClose }: any) {
 
         <button
           onClick={onClose}
-          className="mt-4 text-green-600 hover:underline text-sm"
+          className="mt-4 text-blue-600 hover:underline text-sm"
         >
           Close
         </button>
       </div>
+    </div>
+  );
+}
+
+function InputField({ label, name, type, value, error, onChange }: any) {
+  return (
+    <div>
+      <label className="block text-sm font-medium text-gray-700">{label}</label>
+      <input
+        type={type}
+        name={name}
+        value={value}
+        onChange={onChange}
+        className="mt-1 px-3 py-2 border border-gray-300 rounded-md w-full"
+      />
+      {error && <p className="text-red-500 text-xs">{error}</p>}
     </div>
   );
 }

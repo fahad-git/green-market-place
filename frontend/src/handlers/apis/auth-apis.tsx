@@ -1,29 +1,22 @@
+"use client"
 import axios from "axios";
-
+import { IStateUser } from "../redux/interfaces";
 
 const loginUser = async (credentials: object) => {
-    const res: any = {}
-    res.status = 200;
-    res.data =  await {
-        name: "User1",
-        email: "user@gmail.com",
-        accessToken: "Token",
-        refreshToken: "Token",
-    }
-
-   await waitforme(2000);
-    return res;
-    // return await axios.post(`{process.env.SERVER_URL}/login`, credentials);
+    return await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/login`, credentials, {
+        headers: { 'Content-Type': 'application/json' }
+    });
 }
 
-function waitforme(millisec: any) {
-    return new Promise(resolve => {
-        setTimeout(() => { resolve('') }, millisec);
-    })
+const registerUser = async (user: any) => {
+    return await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/register`, user, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
 }
 
 const APIs = {
-    loginUser
+    loginUser,
+    registerUser
 }
 
 export default APIs;

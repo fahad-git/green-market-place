@@ -84,7 +84,7 @@ export default function Header() {
               >
                 <Image
                   src={user.avatarUrl || "/images/default-avatar.png"}
-                  alt={`${user.username}'s avatar`}
+                  alt={`${user.name}'s avatar`}
                   width={40}
                   height={40}
                   className="rounded-full"
