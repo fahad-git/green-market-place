@@ -1,0 +1,11 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "Running pre-commit checks..."
+
+# Run your commands here
+echo "Running linter..."
+npm run lint
+echo "Formating files..."
+npm run format
+echo "Pre-commit checks completed."
