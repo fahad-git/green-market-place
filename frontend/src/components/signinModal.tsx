@@ -32,7 +32,7 @@ export default function SignInModal({ isOpen, onClose }: any) {
           onClose();  
         } else {
           // toast error
-          toast.error(error)
+          toast.error(error, {position: "top-right"})
         }
       });
     }

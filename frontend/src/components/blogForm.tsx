@@ -34,6 +34,7 @@ const BlogForm: React.FC<BlogFormProps> = ({ onSubmit, initialData }) => {
   // Handle image upload and preview
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
+    setImageFile(file);
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
@@ -41,7 +42,6 @@ const BlogForm: React.FC<BlogFormProps> = ({ onSubmit, initialData }) => {
       };
       reader.readAsDataURL(file);
 
-      setImageFile(file);
       // Optional: Upload file to a server and get its URL
       // For now, we'll set a dummy URL after "uploading"
       // setImageFile(URL.createObjectURL(file)); // Replace with actual URL from server if uploading
