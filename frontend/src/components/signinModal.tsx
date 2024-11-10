@@ -1,18 +1,19 @@
 // components/SignInModal.js
+"use client"
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../handlers/redux/hooks';
 import { loginValidator } from '../utils/validators';
 import { loginUser } from '../handlers/redux/slices/authSlice';
-import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
 
 export default function SignInModal({ isOpen, onClose }: any) {
-  if (!isOpen) return null;
-
+  
   const [errors, setErrors]: any = useState({});
-
   const dispatch = useAppDispatch();
   const { isLoading, error } = useAppSelector((state: any) => state.auth);
-  const router = useRouter(); // Initialize the router
+  
+  //moving it after hook diclaration.
+  if (!isOpen) return null;
   
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -24,17 +25,18 @@ export default function SignInModal({ isOpen, onClose }: any) {
       errors.password = validation.password;
       setErrors(errors);
     }else{
-      console.log("Dispatching login user =========")
       dispatch(loginUser({ email, password })).then((action) => {
         if (loginUser.fulfilled.match(action)) {
           // toast login success
-          onClose();  // Close modal if login is successful
-          // router.push("/shop")
+          toast.success("Login success!")
+          onClose();  
         } else {
-          // toast erroru
+          // toast error
+          toast.error(error, {position: "top-right"})
         }
       });
     }
+
   }
 
   return (

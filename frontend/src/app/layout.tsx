@@ -8,6 +8,8 @@ import "./globals.css";
 import StoreProvider from "./StoreProvider";
 import Header from "../components/header";
 import Footer from "../components/footer";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const openSans = localFont({
   src: "./fonts/OpenSans.ttf",
@@ -38,6 +40,18 @@ export default function RootLayout({
         suppressHydrationWarning={true}
       >
         <StoreProvider>
+        <ToastContainer
+          position="bottom-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss={false}
+          draggable
+          pauseOnHover
+          theme="light"
+        />
           <Header/>
             {children}
           <Footer/>

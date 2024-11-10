@@ -1,5 +1,4 @@
 // pages/about.js
-
 export default function About() {
     return (
       <div className="min-h-screen py-10 bg-gray-50">
@@ -14,10 +13,10 @@ export default function About() {
               We strive to deliver products that enhance your lifestyle while upholding ethical standards and sustainable practices. Our dedicated team works tirelessly to bring you a wide range of high-quality items at competitive prices.
             </p>
             <p className="mb-4">
-              Whether you're looking for the latest trends or reliable essentials, we're here to help make your shopping experience seamless and enjoyable. We believe in building lasting relationships with our customers, which is why we prioritize transparency, customer care, and innovation.
+              Whether you&apos;re looking for the latest trends or reliable essentials, we&apos;re here to help make your shopping experience seamless and enjoyable. We believe in building lasting relationships with our customers, which is why we prioritize transparency, customer care, and innovation.
             </p>
             <p className="mb-4">
-              Thank you for choosing us. Together, let's make every day better.
+              Thank you for choosing us. Together, let&apos;s make every day better.
             </p>
           </div>
         </div>

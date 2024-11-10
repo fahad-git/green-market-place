@@ -1,6 +1,5 @@
 "use client"
 import axios from "axios";
-import { IStateUser } from "../redux/interfaces";
 
 const loginUser = async (credentials: object) => {
     return await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/login`, credentials, {
