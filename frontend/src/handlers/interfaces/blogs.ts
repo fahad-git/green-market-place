@@ -1,9 +1,12 @@
+export interface IFile extends File {
+    imageUrl: string
+}
+
 export interface IBlog {
     id: string;
     title: string;
     author: string;
-    imageFile: File;
-    imageUrl: string
+    imageFile: IFile;
     publishedDate: string;
     updatedDate: string;
     content: string;
@@ -13,7 +16,7 @@ export interface IBlogRequest {
     id: string;
     title: string;
     author: string;
-    imageFile: File;
+    imageFile: IFile;
     content: string;
     userId: string
 }
@@ -22,8 +25,7 @@ export interface IBlogResponse {
     id: string;
     title: string;
     author: string;
-    imageFile: File;
-    imageUrl: string
+    imageFile: IFile;
     publishedDate: string;
     updatedDate: string;
     content: string;

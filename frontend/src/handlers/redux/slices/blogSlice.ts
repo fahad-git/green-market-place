@@ -21,8 +21,18 @@ export const getBlogs = createAsyncThunk<IBlog[], void, { rejectValue: any }>(
   'blogs/getBlogs',
   async (_, { rejectWithValue }) => {
     try {
+      //Get all blogs
       const response = await BLOG_APIs.getBlogs();
-      return response.data;
+
+      const blogs = response.data.map((blog: any) => {
+        if(blog?.imageFile){
+          blog.imageFile = JSON.parse(blog.imageFile + "");
+          blog.imageFile.imageUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/file/${blog.imageFile?.filename}`;
+        }
+        return blog;
+      });
+      
+      return blogs;
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || 'Failed to get blogs.');
     }
@@ -34,8 +44,14 @@ export const getBlog = createAsyncThunk<IBlog, string, { rejectValue: any }>(
   'blogs/getBlog',
   async (id, { rejectWithValue }) => {
     try {
+      //Get blog by id
       const response = await BLOG_APIs.getBlog(id);
-      return response.data; // Assumed response.data is of type Blog
+      const blog: any = response.data;      
+      if(blog?.imageFile){
+        blog.imageFile = JSON.parse(blog.imageFile);
+        blog.imageFile.imageUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/file/${blog.imageFile?.filename}`;
+      }
+      return blog;
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || 'Failed to get blog.');
     }

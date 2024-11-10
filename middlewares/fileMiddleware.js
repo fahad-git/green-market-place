@@ -18,6 +18,7 @@ const fileFilter = (req, file, cb) => {
     if (allowedTypes.includes(file.mimetype)) {
       cb(null, true); // Accept the file
     } else {
+      console.log("Error: File type not allowed")
       cb(new Error('File type not allowed'), false); // Reject the file
     }
   };

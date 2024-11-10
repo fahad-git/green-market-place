@@ -16,7 +16,7 @@ export default function CreateBlog() {
 
     const fileFormData = new FormData();
 
-    fileFormData.append("file", imageFile, imageFile.name);
+    fileFormData.append("file", imageFile, imageFile?.name);
 
     const imageFileResponse = await FILE_APIs.uploadFile(fileFormData);
     if(imageFileResponse.status >= 400){

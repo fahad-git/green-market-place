@@ -36,15 +36,15 @@ router.get('/', getBlogs);
  *           schema:
  *             type: object
  *             properties:
- *               userId:
- *                 type: string 
  *               title:
  *                 type: string
  *               author:
  *                 type: string
- *               blogImage:
- *                 type: string
+ *               imageFile:
+ *                 type: object
  *               content:
+ *                 type: string
+ *               authorId:
  *                 type: string
  *     responses:
  *       201:
@@ -77,8 +77,8 @@ router.post('/create', createBlog);
  *                 type: string
  *               author:
  *                 type: string
- *               blogImage:
- *                 type: string
+ *               imageFile:
+ *                 type: object
  *               content:
  *                 type: string
  *     responses:

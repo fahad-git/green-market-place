@@ -79,15 +79,15 @@ export default function Sustainability() {
         </button>}
       </div>
       <div className="grid gap-8 grid-cols-1 md:grid-cols-3">
-        {blogs.map((blog: IBlog) => (
+        {blogs && blogs?.map((blog: IBlog) => (
           <div
             key={blog.id}
             className="relative rounded shadow-lg p-4 bg-white hover:shadow-xl transition duration-300 transform hover:scale-105"
           >
             <Image
               src={
-                blog.imageUrl ||
-                `http://localhost:8000/api/file/1731198799040.jpeg`
+                blog?.imageFile?.imageUrl ||
+                `/images/default-blog.jpg`
               }
               alt={blog.title}
               width={100}
@@ -113,7 +113,7 @@ export default function Sustainability() {
               </span>
             </div>
             }
-            
+
             <div className="flex justify-end items-center">
               <span className="flex items-center space-x-2">
                 <span className="text-sm text-gray-500">
