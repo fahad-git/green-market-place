@@ -28,3 +28,11 @@ export interface IBlogResponse {
     updatedDate: string;
     content: string;
 }
+
+export interface IBlogState {
+    blogs: IBlog[];            // List of blogs
+    selectedBlog: IBlog | null; // Single blog details
+    isLoading: boolean;       // Loading state
+    error: string | null;     // Error message
+  }
+  

@@ -1,9 +1,33 @@
 const Blog = require("../models/BlogModel");
 
+
+const convertToDateFormat = (timestamp) => {
+    if(timestamp == "") return timestamp;
+    const date = new Date(parseInt(timestamp));
+    const formattedDate = date.toLocaleDateString();
+    return String(formattedDate);
+}
+
+const shortContent = (content) => {
+   return content.substr(0, Math.min(content.length, 300));
+}
+
 exports.getBlogs = async (req, res) => {
   try {
         const blogResponse = await Blog.find({});
-        res.status(200).json(blogResponse);
+        let blogs = [];
+        for(let blog of blogResponse){
+            blogs.push({
+                id: blog._id,
+                title: blog.title,
+                author: blog.author,
+                publishedDate: convertToDateFormat(blog.publishedDate),
+                updatedDate: convertToDateFormat(blog.updatedDate),
+                authorId: blog.authorId,
+                content: shortContent(blog.content)
+            })
+        }
+        res.status(200).json(blogs);
     } catch(error){
         console.log(`Error: ${error.message}`);
         res.status(500).json({message: "Failed to get blogs"});

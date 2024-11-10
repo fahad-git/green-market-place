@@ -6,20 +6,34 @@ import Image from "next/image";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { IBlog } from "@/src/handlers/interfaces/blogs";
+import { useAppDispatch, useAppSelector } from "@/src/handlers/redux/hooks";
+import { getBlogs } from "@/src/handlers/redux/slices/blogSlice";
+import { toast } from "react-toastify";
 
 export default function Sustainability() {
-  const [blogs, setBlogs] = useState<IBlog[]>([]);
+  // const [blogs, setBlogs] = useState<IBlog[]>([]);
   const router = useRouter();
 
-  // Placeholder for the current user's ID, assuming you get this from state/auth context
-  const currentUserId = "current-user-id"; 
+  const [mounted, setMounted] = useState(false); // Track if component has mounted
+  const dispatch = useAppDispatch();
+  const { blogs, isLoading, error } = useAppSelector(
+    (state: any) => state.blogs
+  );
+
+  const user = useAppSelector((state: any) => state.auth.user);
+
+  // Set mounted to true after client-side render
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
-    const fetchBlogs = async () => {
-      const response = await axios.get("https://dummyapi.online/api/blogposts");
-      setBlogs(response.data);
-    };
-    fetchBlogs();
+    dispatch(getBlogs()).then((action) => {
+      if (!getBlogs.fulfilled.match(action)) {
+        // returns blogs
+        toast.error("Failed to load blogs.");
+      }
+    });
   }, []);
 
   const handleCreateButton = () => {
@@ -33,14 +47,16 @@ export default function Sustainability() {
   const handleDelete = async (blogId: string) => {
     // Example API delete call (assuming backend endpoint exists)
     await axios.delete(`https://dummyapi.online/api/blogposts/${blogId}`);
-    setBlogs(blogs.filter(blog => blog.id !== blogId));
+    // setBlogs(blogs.filter((blog) => blog.id !== blogId));
   };
+
+  if (!mounted) return <div className="min-h-screen"></div>; // Avoid rendering mismatched HTML on the server
 
   return (
     <div className="min-h-screen container mx-auto py-8 px-4">
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-4xl font-bold">Sustainability Blogs</h1>
-        <button
+        {user && <button
           className="relative inline-flex items-center justify-center overflow-hidden font-bold text-white bg-gradient-to-r from-green-500 to-green-700 rounded-lg shadow-md transition-transform duration-300 transform hover:scale-105 hover:from-green-600 hover:to-green-800 px-8 py-3"
           onClick={handleCreateButton}
         >
@@ -60,16 +76,19 @@ export default function Sustainability() {
             ></path>
           </svg>
           Create Blog
-        </button>
+        </button>}
       </div>
       <div className="grid gap-8 grid-cols-1 md:grid-cols-3">
-        {blogs.map((blog) => (
+        {blogs.map((blog: IBlog) => (
           <div
             key={blog.id}
             className="relative rounded shadow-lg p-4 bg-white hover:shadow-xl transition duration-300 transform hover:scale-105"
           >
             <Image
-              src={blog.imageUrl || `http://localhost:8000/api/file/1731198799040.jpeg`}
+              src={
+                blog.imageUrl ||
+                `http://localhost:8000/api/file/1731198799040.jpeg`
+              }
               alt={blog.title}
               width={100}
               height={100}
@@ -85,8 +104,26 @@ export default function Sustainability() {
               Read More
             </Link>
 
+            {blog.updatedDate &&
+            <div className="flex justify-end items-center">
+              <span className="flex items-center space-x-2">
+                <span className="text-sm text-gray-500">
+                  Updated: {blog.updatedDate}
+                </span>
+              </span>
+            </div>
+            }
+            
+            <div className="flex justify-end items-center">
+              <span className="flex items-center space-x-2">
+                <span className="text-sm text-gray-500">
+                  Published: {blog.publishedDate}
+                </span>
+              </span>
+            </div>
+
             {/* Edit/Delete Buttons for User's Own Blogs */}
-            {true && (
+            {/* {true && (
               <div className="absolute top-4 right-4 space-x-2 flex">
                 <button
                   onClick={() => handleEdit(blog.id)}
@@ -101,7 +138,7 @@ export default function Sustainability() {
                   🗑️
                 </button>
               </div>
-            )}
+            )} */}
           </div>
         ))}
       </div>

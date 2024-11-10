@@ -8,6 +8,7 @@ import Image from 'next/image';
 import SignInModal from './signinModal';
 import RegisterModal from './registerModal';
 import "../styles/header.css";
+import { useAppSelector } from '../handlers/redux/hooks';
 
 export default function Header() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -16,7 +17,7 @@ export default function Header() {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [mounted, setMounted] = useState(false); // Track if component has mounted
 
-  const user = useSelector((state: any) => state.auth.user);
+  const user = useAppSelector((state: any) => state.auth.user);
   const dispatch = useDispatch();
   const router = useRouter();
 

@@ -9,6 +9,7 @@ import {
 } from "./actions-constants";
 import { IState, IActions } from "./interfaces";
 import authReducer from "./slices/authSlice";
+import blogReducer from "./slices/blogSlice";
 
 export const initialState: IState = {
   user: {
@@ -65,6 +66,7 @@ export const counterReducer = (countState: number = 0, action: IActions) => {
 const rootReducer = combineReducers({
   default: defaultReducer,
   auth: authReducer,
+  blogs: blogReducer,
   count: counterReducer,
 });
 
