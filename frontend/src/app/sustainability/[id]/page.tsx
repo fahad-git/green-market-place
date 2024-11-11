@@ -15,7 +15,7 @@ export default function Blog() {
   const dispatch = useDispatch();
   const [mounted, setMounted] = useState(false);
 
-  const { selectedBlog: blog, isLoading, error } = useAppSelector((state: any) => state.blogs);
+  const { selectedBlog: blog } = useAppSelector((state: any) => state.blogs);
   const user = useAppSelector((state: any) => state.auth.user);
 
   useEffect(() => {
@@ -44,7 +44,8 @@ export default function Blog() {
           toast.success("Blog deleted successfully!");
           router.push("/sustainability");
         }
-      } catch (error) {
+      } catch (error: any) {
+        console.log(`ERROR: ${error?.message}`)
         toast.error("Failed to delete blog.");
       }
     }

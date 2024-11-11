@@ -1,7 +1,7 @@
 // pages/sustainability/edit/[id].tsx
 "use client"
 import { useParams, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import BlogForm from '@/src/components/blogForm';
 import { getBlog } from '@/src/handlers/redux/slices/blogSlice';
 import { toast } from 'react-toastify';
@@ -14,7 +14,6 @@ export default function EditBlog() {
   const router = useRouter();
   const { id } = useParams();
   const dispatch = useAppDispatch();
-  const [initialData, setInitialData] = useState(null);
   const { selectedBlog: blog, isLoading, error } = useAppSelector((state: any) => state.blogs)
   const user = useAppSelector((state:any) => state.auth.user);
 
@@ -64,7 +63,8 @@ export default function EditBlog() {
       router.push("/sustainability");
     } else {
       toast.error("Failed to save blog.");
-      imageFileResponse && await FILE_APIs.deleteFile(imageFileResponse?.data.file.filename);
+      if(imageFileResponse)
+        await FILE_APIs.deleteFile(imageFileResponse?.data.file.filename);
     }
   };
 

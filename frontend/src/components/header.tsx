@@ -1,14 +1,13 @@
 "use client";
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../handlers/redux/slices/authSlice';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import SignInModal from './signinModal';
 import RegisterModal from './registerModal';
 import "../styles/header.css";
-import { useAppSelector } from '../handlers/redux/hooks';
+import { useAppDispatch, useAppSelector } from '../handlers/redux/hooks';
 
 export default function Header() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -18,7 +17,7 @@ export default function Header() {
   const [mounted, setMounted] = useState(false); // Track if component has mounted
 
   const user = useAppSelector((state: any) => state.auth.user);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const router = useRouter();
 
   // Set mounted to true after client-side render
