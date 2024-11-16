@@ -8,8 +8,8 @@ import { IBlog, IBlogState } from '../../interfaces/blogs';
 
 // Define the initial state with proper types
 const initialState: IBlogState = {
-  blogs: [],
   selectedBlog: null,
+  blogs: [],
   isLoading: false,
   error: null,
 };

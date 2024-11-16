@@ -7,9 +7,9 @@ const nextConfig = {
             hostname: 'localhost',
             port: '8000',
             pathname: '/api/file',
-        },
+        }
         ],
-        domains: ['localhost']
+        domains: ['localhost', 'cdn.dummyjson.com']
     }
 };
 

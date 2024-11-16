@@ -10,6 +10,7 @@ import {
 import { IState, IActions } from "./interfaces";
 import authReducer from "./slices/authSlice";
 import blogReducer from "./slices/blogSlice";
+import productReducer from "./slices/productSlice";
 
 export const initialState: IState = {
   user: {
@@ -67,6 +68,7 @@ const rootReducer = combineReducers({
   default: defaultReducer,
   auth: authReducer,
   blogs: blogReducer,
+  products: productReducer,
   count: counterReducer,
 });
 
