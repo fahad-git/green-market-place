@@ -59,7 +59,7 @@ export default function CartPage() {
     <div className="min-h-screen container mx-auto py-8 px-4">
       <h1 className="text-4xl font-bold mb-8">Your Cart</h1>
 
-      {cart.items?.length === 0 ? (
+      {cart.totalQuantity === 0 ? (
         <div className="text-center">
           <p className="text-lg text-gray-600 mb-4">Your cart is empty. Add some sustainable items!</p>
           <Link href="/">

@@ -15,4 +15,12 @@ header {
     align-items: center;
     padding: 16px;
   }
-  
+
+  /* Optional Additional CSS */
+.shadow-lg {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.hover\\:bg-gray-100:hover {
+  background-color: #f7fafc;
+}

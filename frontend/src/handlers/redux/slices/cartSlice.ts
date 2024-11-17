@@ -74,8 +74,8 @@ export const removeCartItem = createAsyncThunk<
   { rejectValue: any }
 >("cart/removeCartItem", async ({userId, productId}, { rejectWithValue }) => {
   try {
-    await CART_APIs.removeCartItem(userId, productId); // Replace with your API call
-    return productId;
+    const response = await CART_APIs.removeCartItem(userId, productId); // Replace with your API call
+    return response.data.cart;
   } catch (error: any) {
     return rejectWithValue(
       error.response?.data?.message || "Failed to remove item from cart."
@@ -160,9 +160,7 @@ const cartSlice = createSlice({
         removeCartItem.fulfilled,
         (state, action: PayloadAction<any>) => {
           state.isLoading = false;
-          state.cart.items = state.cart.items.filter(
-            (item) => item.productId !== action.payload
-          );
+          state.cart = action.payload;
         }
       )
       .addCase(

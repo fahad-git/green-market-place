@@ -15,7 +15,7 @@ export default function Products() {
 
   const { products, loading, error } = useAppSelector((state: any) => state.products);
   const user = useAppSelector((state: any) => state.auth.user);
-  const cart = useAppSelector((state: any) => state.carts.cart); // Assuming cart is part of Redux state
+  const cart = useAppSelector((state: any) => state.carts.cart);
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
@@ -26,10 +26,7 @@ export default function Products() {
       }
     });
   }, [dispatch]);
-
-  // Calculate total count of products in the cart
-  const totalCartCount = cart?.items?.reduce((total: number, item: any) => total + item.quantity, 0);
-
+  
   const filteredProducts = products.filter((product: any) =>
     product.title?.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -37,7 +34,7 @@ export default function Products() {
   const handleAddToCart = (product: any) => {
     const existingItem = cart?.items?.find((item: any) => item.id === product.id);
     if (existingItem) {
-      dispatch(updateCartItemQuantity({ id: product.id, quantity: existingItem.quantity + 1 }));
+      dispatch(updateCartItemQuantity({ userId: user.id, productId:product.id, quantity: existingItem.quantity + 1 }));
     } else {
       dispatch(addCartItem({ userId: user.id, productId: product.id, title: product.title, price: product.price, thumbnail: product.thumbnail, quantity: 1 }));
     }
@@ -46,7 +43,7 @@ export default function Products() {
 
   const handleUpdateQuantity = (product: any, quantity: number) => {
     if (quantity < 1) return; // Ensure quantity doesn't go below 1
-    dispatch(updateCartItemQuantity({ id: product.id, quantity }));
+    dispatch(updateCartItemQuantity({ userId: user.id, productId:product.id, quantity }));
   };
 
   if (!mounted || !products) return <div className="min-h-screen"></div>;
@@ -64,9 +61,6 @@ export default function Products() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
-          <div className="text-lg font-bold">
-            🛒 Cart: <span>{totalCartCount}</span>
-          </div>
         </div>
       </div>
 
