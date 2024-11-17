@@ -11,6 +11,7 @@ import { IState, IActions } from "./interfaces";
 import authReducer from "./slices/authSlice";
 import blogReducer from "./slices/blogSlice";
 import productReducer from "./slices/productSlice";
+import cartReducer from "./slices/cartSlice";
 
 export const initialState: IState = {
   user: {
@@ -65,11 +66,10 @@ export const counterReducer = (countState: number = 0, action: IActions) => {
  * @description: this combines all the reducers into one to pass it to the redux store as a single entity.
  */
 const rootReducer = combineReducers({
-  default: defaultReducer,
   auth: authReducer,
   blogs: blogReducer,
   products: productReducer,
-  count: counterReducer,
+  carts: cartReducer,
 });
 
 export default rootReducer;

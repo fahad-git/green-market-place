@@ -7,19 +7,19 @@ const getProducts = async () => {
     });
 }
 
-const getProduct = async (productId: string) => {
+const getProduct = async (productId: number) => {
     return await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/products/${productId}`, {
         headers: { 'Content-Type': 'application/json' }
     });
 }
 
-const addProduct = async (product: any) => {
+const addProduct = async (product: number) => {
     return await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/product/add`, product, {
         headers: { 'Content-Type': 'application/json' }
     });
 }
 
-const updateProduct = async (productId: string, product: any) => {
+const updateProduct = async (productId: number, product: any) => {
     return await axios.put(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/product/${productId}`, product, {
         headers: { 'Content-Type': 'application/json' }
     });

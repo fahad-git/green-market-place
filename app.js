@@ -14,6 +14,7 @@ var authRouter = require('./routes/authRoutes');
 var orderRouter = require('./routes/orderRoutes');
 var fileRouter = require('./routes/fileRoutes');
 var blogRouter = require('./routes/blogRoutes');
+var cartRouter = require('./routes/cartRoutes');
 
 /**
  * Setting up database
@@ -52,6 +53,7 @@ app.use('/api/auth', authRouter);
 app.use('/api/products', productsRouter);
 app.use('/api/orders', orderRouter);
 app.use('/api/blogs', blogRouter);
+app.use('/api/cart', cartRouter)
 
 
 /**
