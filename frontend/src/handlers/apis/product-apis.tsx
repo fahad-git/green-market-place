@@ -1,5 +1,6 @@
 "use client"
 import axios from "axios";
+import { IProduct } from "../interfaces/products";
 
 const getProducts = async () => {
     return await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/products`, {
@@ -13,7 +14,7 @@ const getProduct = async (productId: number) => {
     });
 }
 
-const addProduct = async (product: number) => {
+const addProduct = async (product: IProduct) => {
     return await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/product/add`, product, {
         headers: { 'Content-Type': 'application/json' }
     });

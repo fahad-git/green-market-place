@@ -29,7 +29,7 @@ export const getProducts = createAsyncThunk<IProduct[], void, { rejectValue: any
 );
 
 // Fetch individual product by ID
-export const getProduct = createAsyncThunk<IProduct, string, { rejectValue: any }>(
+export const getProduct = createAsyncThunk<IProduct, number, { rejectValue: any }>(
   'products/getProduct',
   async (id, { rejectWithValue }) => {
     try {
@@ -71,12 +71,12 @@ export const deleteProduct = createAsyncThunk<string, string, { rejectValue: any
 );
 
 // Update an existing product by ID
-export const updateProduct = createAsyncThunk<IProduct, { id: string; updatedData: IProduct }, { rejectValue: any }>(
+export const updateProduct = createAsyncThunk<IProduct, { id: number; updatedData: IProduct }, { rejectValue: any }>(
   'products/updateProduct',
   async ({ id, updatedData }, { rejectWithValue }) => {
     try {
       const response = await PRODUCT_APIs.updateProduct(id, updatedData);
-      return response.data; // Assumed response.data is of type Product
+      return response.data; 
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || 'Failed to update product.');
     }
