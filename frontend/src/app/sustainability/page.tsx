@@ -18,12 +18,8 @@ export default function Sustainability() {
 
   const user = useAppSelector((state: any) => state.auth.user);
 
-  // Set mounted to true after client-side render
   useEffect(() => {
     setMounted(true);
-  }, []);
-
-  useEffect(() => {
     dispatch(getBlogs()).then((action) => {
       if (!getBlogs.fulfilled.match(action)) {
         // returns blogs

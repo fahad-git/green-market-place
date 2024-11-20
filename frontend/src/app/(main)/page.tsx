@@ -28,7 +28,6 @@ export default function Products() {
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    console.log("From products...")
     setMounted(true);
     dispatch(getProducts()).then((action) => {
       if (!getProducts.fulfilled.match(action)) {

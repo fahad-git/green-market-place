@@ -24,21 +24,23 @@ export default function Header() {
   const dispatch = useAppDispatch();
   const router = useRouter();
 
-  // Set mounted to true after client-side render
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   // Close dropdown when clicking outside
   useEffect(() => {
+    setMounted(true);
+    
     document.addEventListener("mousedown", handleOutsideClick);
-    if (isDropdownOpen) {
-      setDropdownOpen(false);
-    }
+
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, []);
+
+  useEffect(() => {
+    if(!user){
+      setDropdownOpen(false);
+    }
+  }, [user])
+
 
   const handleOutsideClick = (event: MouseEvent) => {
     if (
@@ -61,6 +63,10 @@ export default function Header() {
   };
 
   if (!mounted) return null; // Avoid rendering mismatched HTML on the server
+
+  function handleToggleDropDown(): void {
+    setDropdownOpen(!isDropdownOpen);
+  }
 
   return (
     <header className="bg-green-600 shadow-md py-4">
@@ -134,7 +140,7 @@ export default function Header() {
           {user ? (
             <div className="relative" ref={dropdownRef}>
               <button
-                onClick={() => setDropdownOpen(!isDropdownOpen)}
+                onClick={handleToggleDropDown}
                 className="flex items-center space-x-2 text-white focus:outline-none"
               >
                 <span className="flex items-center space-x-2">
