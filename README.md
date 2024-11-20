@@ -39,8 +39,8 @@ The project consists of a **single repository** hosting both backend and fronten
 ### Steps to Run the Project
 1. **Clone the Repository**:
    ```bash
-   git clone <repository-url>
-   cd <repository-name>
+   git clone git@github.com:fahad-git/green-market-place.git
+   cd green-market-place
    ```
 
 2. **Set Node Version**:
@@ -86,7 +86,7 @@ We welcome contributions to improve the **Green Market Place**! Please follow th
    ```
 3. Commit changes:
    ```bash
-   git commit -m "Add your descriptive message here"
+   git commit -m "GMP-1234: Add your descriptive message here"
    ```
 4. Push to your branch:
    ```bash
