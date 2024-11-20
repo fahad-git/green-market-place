@@ -122,19 +122,28 @@ router.put('/:userId', updateCartItem);
  */
 router.delete('/:userId', removeCartItem);
 
+
 /**
  * @swagger
- * /api/cart/clear:
+ * /api/cart:
  *   delete:
- *     summary: Clear all items in the cart
+ *     summary: Add an item to the cart
  *     tags: [Cart]
- *     description: Remove all items from the cart.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userId:
+ *                 type: string
  *     responses:
- *       200:
- *         description: Cart cleared successfully
- *       404:
- *         description: Cart is already empty
+ *       201:
+ *         description: Item added to cart successfully
+ *       400:
+ *         description: Bad request
  */
-router.delete('/clear', clearCart);
+router.delete('/', clearCart);
 
 module.exports = router;

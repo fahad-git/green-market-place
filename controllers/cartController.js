@@ -116,7 +116,7 @@ exports.clearCart = async (req, res) => {
     const cart = await CartModel.findOne({ userId });
 
     if (!cart) {
-      return res.status(404).json({ message: "Cart not found." });
+      return res.status(404).json({ message: "Cart find cart for this user." });
     }
 
     cart.items = [];

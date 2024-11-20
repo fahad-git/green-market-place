@@ -9,6 +9,7 @@ import {
   updateCartItemQuantity,
   removeCartItem,
   fetchCartItems,
+  clearCart,
 } from "@/src/handlers/redux/slices/cartSlice";
 
 export default function CartPage() {
@@ -64,7 +65,9 @@ export default function CartPage() {
       toast.error("Your cart is empty. Add some items before proceeding.");
       return;
     }
-    router.push("/checkout");
+    dispatch(clearCart(user.id));
+    toast.info("Order placed successfully!");
+    router.push("/");
   };
 
   return (

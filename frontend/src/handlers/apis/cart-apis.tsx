@@ -26,11 +26,19 @@ const removeCartItem = async (userId: string, productId: number) => {
     });
 }
 
+const clearCart = async (userId: string) => {
+    return await axios.delete(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/cart/`, {
+        data: {userId: userId},
+        headers: { 'Content-Type': 'application/json' }
+    });
+}
+
 const CART_APIs = {
     getCartItems,
     addCartItem,
     updateCartItemQuantity,
-    removeCartItem
+    removeCartItem,
+    clearCart
 }
 
 export default CART_APIs;
