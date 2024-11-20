@@ -45,13 +45,17 @@ export default function ProductPage({ params }: { params: { id: string } }) {
       </button>
 
       {/* Sustainability Banner */}
-      <SustainabilityBanner
-        carbonFootprintScore={product.sustainability?.carbonFootprintScore || "N/A"}
-        description={
-          product.sustainability?.shortDescription ||
-          "Sustainability is key to a healthier planet. Support eco-friendly products!"
-        }
-      />
+      <div className="animate-fadeIn">
+        <SustainabilityBanner
+          carbonFootprintScore={
+            product.sustainability?.carbonFootprintScore || "N/A"
+          }
+          description={
+            product.sustainability?.shortDescription ||
+            "Sustainability is key to a healthier planet. Support eco-friendly products!"
+          }
+        />
+      </div>
 
       <div className="container mx-auto py-8 px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -66,4 +70,3 @@ export default function ProductPage({ params }: { params: { id: string } }) {
     </div>
   );
 }
-

@@ -59,6 +59,7 @@ export default function Products() {
           productId: product.id,
           title: product.title,
           price: product.price,
+          carbonFootprintScore: product?.sustainability?.carbonFootprintScore,
           thumbnail: product.thumbnail,
           quantity: 1,
         })
@@ -217,21 +218,22 @@ export default function Products() {
                     </div>
                   ) : (
                     <div className="flex justify-end">
-                      <button
-                        className="btn-primary"
-                        onClick={() => handleAddToCart(product)}
-                      >
-                        <Image
-                          src={ADD_TO_CART_IMAGE}
-                          alt={"Add to Cart"}
-                          width={30}
-                          height={30}
-                          className="object-cover rounded"
-                          priority
-                        />
-                      </button>
+                      {user && (
+                        <button
+                          className="btn-primary"
+                          onClick={() => handleAddToCart(product)}
+                        >
+                          <Image
+                            src={ADD_TO_CART_IMAGE}
+                            alt={"Add to Cart"}
+                            width={30}
+                            height={30}
+                            className="object-cover rounded"
+                            priority
+                          />
+                        </button>
+                      )}
                     </div>
-
                   )}
                 </div>
               </div>

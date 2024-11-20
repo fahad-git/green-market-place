@@ -27,6 +27,10 @@ const CartItemSchema = new mongoose.Schema({
       return this.price * this.quantity;
     },
   },
+  carbonFootprintScore: {
+    type: Number,
+    required: false
+  },
   thumbnail: {
     type: String,
     required: false

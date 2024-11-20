@@ -13,7 +13,7 @@ export default function Sustainability({ product }: { product: any }) {
               {product.sustainability?.certifications?.join(", ") || "N/A"}
             </li>
             <li>
-              <strong>Carbon Footprint:</strong>{" "}
+              <strong>Carbon Footprint Score:</strong>{" "}
               {product.sustainability?.carbonFootprintScore || "N/A"}
             </li>
           </ul>

@@ -31,7 +31,7 @@ const config: Config = {
     },
     animation: {
       blink: "blink 2s infinite",
-      fadeIn: "fadeIn 1s ease-in-out",
+      fadeIn: "fadeIn 5s ease-in-out",
     },
     keyframes: {
       blink: {

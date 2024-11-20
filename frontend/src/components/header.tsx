@@ -31,7 +31,7 @@ export default function Header() {
   useEffect(() => {
     document.addEventListener("mousedown", handleOutsideClick);
     if (isDropdownOpen) {
-      setDropdownOpen(false)
+      setDropdownOpen(false);
     }
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
@@ -64,7 +64,10 @@ export default function Header() {
     <header className="bg-green-600 shadow-md py-4">
       <div className="container mx-auto flex items-center justify-between px-4">
         {/* Logo */}
-        <Link href="/" className="lg:block hidden text-2xl font-bold text-white">
+        <Link
+          href="/"
+          className="lg:block hidden text-2xl font-bold text-white"
+        >
           <Image
             src={"/images/gmp-white.png"}
             alt="GMP"
@@ -73,7 +76,10 @@ export default function Header() {
             priority
           />
         </Link>
-        <Link href="/" className="lg:hidden block text-2xl font-bold text-white">
+        <Link
+          href="/"
+          className="lg:hidden block text-2xl font-bold text-white"
+        >
           <Image
             src={"/images/gmp-logo-white.png"}
             alt="GMP"
@@ -85,7 +91,10 @@ export default function Header() {
 
         {/* Navigation for large screens */}
         <nav className={`md:flex space-x-6 hidden md:block`}>
-          <Link href="/sustainability" className="hover:text-gray-800 text-white">
+          <Link
+            href="/sustainability"
+            className="hover:text-gray-800 text-white"
+          >
             Sustainability
           </Link>
           <Link href="/about" className="hover:text-gray-800 text-white">
@@ -140,9 +149,25 @@ export default function Header() {
                 </span>
               </button>
               {isDropdownOpen && (
-                <div
-                  className="absolute right-0 mt-2 w-56 bg-white rounded-md shadow-lg py-2 z-50"
-                >
+                <div className="absolute right-0 mt-2 w-56 bg-white rounded-md shadow-lg py-2 z-50">
+                  <Link
+                    href="/sustainability"
+                    className="block px-4 py-2 text-gray-800 hover:bg-gray-100 block md:hidden"
+                  >
+                    Sustainability
+                  </Link>
+                  <Link
+                    href="/about"
+                    className="block px-4 py-2 text-gray-800 hover:bg-gray-100 block md:hidden"
+                  >
+                    About
+                  </Link>
+                  <Link
+                    href="/contact"
+                    className="block px-4 py-2 text-gray-800 hover:bg-gray-100 block md:hidden"
+                  >
+                    Contact
+                  </Link>
                   <Link
                     href="/profile"
                     className="block px-4 py-2 text-gray-800 hover:bg-gray-100"

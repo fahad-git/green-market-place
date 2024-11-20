@@ -18,7 +18,7 @@ exports.getCart = async (req, res) => {
 
 // Add an item to the cart
 exports.addItemToCart = async (req, res) => {
-  const { userId, productId, title, price, quantity, thumbnail } = req.body;
+  const { userId, productId, title, price, quantity, carbonFootprintScore, thumbnail } = req.body;
 
   try {
     let cart = await CartModel.findOne({ userId });
@@ -38,6 +38,7 @@ exports.addItemToCart = async (req, res) => {
         title,
         price,
         quantity,
+        carbonFootprintScore,
         total: price * quantity,
         thumbnail
       });

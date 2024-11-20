@@ -5,7 +5,8 @@ export interface ICartItem {
     title: string;
     price: number;
     quantity: number;
-    total?: number
+    total?: number;
+    carbonFootprintScore?: number;
     thumbnail?: string;
   }
   
