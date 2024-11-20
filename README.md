@@ -17,6 +17,10 @@ The project consists of a **single repository** hosting both backend and fronten
 
 ### 1. **Backend**
 - **Framework**: Built on **Express.js**.
+- **Database**: Uses **MongoDB** for storing data.
+- **Environment Configuration**: The `.env` file must include the following:
+  - `MONGO_URI`: Connection string to your MongoDB instance.
+  - `JWT_SECRET`: Secret key for signing JSON Web Tokens (JWT).
 - **Node.js Version**: The project uses Node.js version `v22.9.0`, specified in the `.nvmrc` file for environment consistency.
 - **Code Quality Tools**:
   - **Prettier**: For consistent code formatting.
@@ -34,6 +38,7 @@ The project consists of a **single repository** hosting both backend and fronten
 ### Prerequisites
 - **Node.js**: Ensure you have `v22.9.0` installed (recommended to use [nvm](https://github.com/nvm-sh/nvm)).
 - **Git**: For cloning the repository.
+- **MongoDB**: A running MongoDB instance (local or cloud).
 - **Package Manager**: Either npm or yarn.
 
 ### Steps to Run the Project
@@ -60,19 +65,27 @@ The project consists of a **single repository** hosting both backend and fronten
    npm install
    ```
 
-4. **Run the Backend**:
+4. **Configure Environment Variables**:
+   In the backend root directory, create a `.env` file and configure the following:
+   ```env
+   MONGO_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/<database-name>?retryWrites=true&w=majority
+   JWT_SECRET=your-secret-key
+   ```
+   Replace `<username>`, `<password>`, `<database-name>`, and `your-secret-key` with your specific details.
+
+5. **Run the Backend**:
    In the root directory:
    ```bash
    npm start
    ```
 
-5. **Run the Frontend**:
+6. **Run the Frontend**:
    In the `frontend` directory:
    ```bash
    npm run dev
    ```
 
-6. **Access the Application**:
+7. **Access the Application**:
    Open your browser and navigate to `http://localhost:3000` (default port for Next.js).
 
 ---
@@ -96,15 +109,11 @@ We welcome contributions to improve the **Green Market Place**! Please follow th
 
 ---
 
-## Declaration
-This project was built to fulfil the Specialization in Web Technology course requirement.
-
 ## License
 This project is open-source and available under the [MIT License](LICENSE).
 
 ---
 
-## Contact
-For questions or suggestions, feel free to contact us via [email@example.com](mailto:email@example.com).
+## Declaration
+"This project, **Green Market Place**, was developed as part of the **Specialization in Web Technology** course to fulfil its academic requirements."
 
-Happy coding and sustainable shopping! 🌱
