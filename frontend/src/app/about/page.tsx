@@ -7,7 +7,7 @@ export default function About() {
           
           <div className="text-lg text-gray-700 leading-relaxed">
             <p className="mb-4">
-              Welcome to <strong>ShopLogo</strong>, where our mission is to provide quality products and services to our valued customers. Established in [Year], we’ve been dedicated to excellence and customer satisfaction in every transaction.
+              Welcome to <strong>Green Market Place</strong>, where our mission is to provide quality products and services to our valued customers. Established in [Year], we’ve been dedicated to excellence and customer satisfaction in every transaction.
             </p>
             <p className="mb-4">
               We strive to deliver products that enhance your lifestyle while upholding ethical standards and sustainable practices. Our dedicated team works tirelessly to bring you a wide range of high-quality items at competitive prices.

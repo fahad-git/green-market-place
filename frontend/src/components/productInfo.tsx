@@ -13,7 +13,7 @@ export default function ProductInfo({ product }: { product: any }) {
   const cart = useAppSelector((state: any) => state.carts.cart);
 
   useEffect(() => {
-    const existingItem = cart.items?.find((item: any) => item.productId === product.id);
+    const existingItem = cart?.items?.find((item: any) => item.productId === product.id);
     if (existingItem) {
       setQuantity(existingItem.quantity);
     }
@@ -25,7 +25,7 @@ export default function ProductInfo({ product }: { product: any }) {
       return;
     }
 
-    const existingItem = cart.items?.find(
+    const existingItem = cart?.items?.find(
       (item: any) => item.productId === product.id
     );
 

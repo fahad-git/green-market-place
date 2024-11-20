@@ -3,6 +3,8 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import BLOG_APIs from '../../apis/blog-apis';
 import { IBlog, IBlogState } from '../../interfaces/blogs';
+import { getBlogFromDB, getBlogsFromDB, saveBlogsToDB } from '@/src/utils/db';
+import { toast } from 'react-toastify';
 
 // Define types for the blog data and state
 
@@ -17,43 +19,67 @@ const initialState: IBlogState = {
 // Thunks for async actions
 
 // Fetch list of all blogs
+// handlers/redux/slices/blogSlice.ts
+
 export const getBlogs = createAsyncThunk<IBlog[], void, { rejectValue: any }>(
   'blogs/getBlogs',
   async (_, { rejectWithValue }) => {
     try {
-      //Get all blogs
       const response = await BLOG_APIs.getBlogs();
-
       const blogs = response.data.map((blog: any) => {
-        if(blog?.imageFile){
-          blog.imageFile = JSON.parse(blog.imageFile + "");
+        if (blog?.imageFile) {
+          blog.imageFile = JSON.parse(blog.imageFile + '');
           blog.imageFile.imageUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/file/${blog.imageFile?.filename}`;
         }
         return blog;
       });
-      
+
+      // Cache blogs in IndexedDB
+      await saveBlogsToDB(blogs);
+
       return blogs;
     } catch (error: any) {
-      return rejectWithValue(error.response?.data?.message || 'Failed to get blogs.');
+      console.log(`ERROR: ${error.message}`)
+      if(error.message == "Network Error"){
+        toast.info("Network Failed: You are accessing offline mode.", { position: "top-right" });
+        console.error('Network error, falling back to cache:', error);
+        // Fallback to cached blogs
+        const cachedBlogs = await getBlogsFromDB();
+        if (cachedBlogs.length > 0) {
+          return cachedBlogs;
+        }
+      }
+      return rejectWithValue('Failed to fetch blogs and no cached data available.');
     }
   }
 );
 
-// Fetch individual blog by ID
 export const getBlog = createAsyncThunk<IBlog, string, { rejectValue: any }>(
   'blogs/getBlog',
   async (id, { rejectWithValue }) => {
     try {
-      //Get blog by id
       const response = await BLOG_APIs.getBlog(id);
-      const blog: any = response.data;      
-      if(blog?.imageFile){
+      const blog: any = response.data;
+      if (blog?.imageFile) {
         blog.imageFile = JSON.parse(blog.imageFile);
         blog.imageFile.imageUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/file/${blog.imageFile?.filename}`;
       }
+
+      // Cache the blog in IndexedDB
+      await saveBlogsToDB([blog]);
+
       return blog;
     } catch (error: any) {
-      return rejectWithValue(error.response?.data?.message || 'Failed to get blog.');
+      console.log(`ERROR: ${error.message}`)
+      if(error.message == "Network Error"){
+        toast.info("Network Failed: You are accessing offline mode.", { position: "top-right" });
+        // Fallback to cached blog
+        const cachedBlog = await getBlogFromDB(id);
+        if (cachedBlog) {
+          return cachedBlog;
+        }
+      }
+      return rejectWithValue('Failed to fetch blog and no cached data available.');
     }
   }
 );

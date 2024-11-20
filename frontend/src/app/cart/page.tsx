@@ -38,7 +38,7 @@ export default function CartPage() {
   if (!mounted || !user || !cart) return <div className="min-h-screen"></div>;
 
   // Calculate total carbon footprint
-  const totalCarbonFootprintScore = cart.items?.reduce(
+  const totalCarbonFootprintScore = cart?.items?.reduce(
     (total: number, item: any) => total + item.carbonFootprintScore * item.quantity,
     0
   );
@@ -61,7 +61,7 @@ export default function CartPage() {
   };
 
   const handleProceedToCheckout = () => {
-    if (cart.items?.length === 0) {
+    if (cart?.items?.length === 0) {
       toast.error("Your cart is empty. Add some items before proceeding.");
       return;
     }
@@ -76,7 +76,7 @@ export default function CartPage() {
 
       {/* New Carbon Footprint Banner */}
       {totalCarbonFootprintScore > 0 && (
-        <div className="bg-green-50 border-l-4 border-green-500 p-6 rounded-lg mb-6">
+        <div className="bg-green-50 border-l-4 border-green-500 p-6 rounded-lg mb-6 animate-fadeIn">
           <h2 className="text-2xl font-bold text-green-700">
             Your Sustainability Impact
           </h2>
@@ -106,7 +106,7 @@ export default function CartPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Cart Items */}
           <div className="lg:col-span-2">
-            {cart.items?.map((item: any) => (
+            {cart?.items?.map((item: any) => (
               <div
                 key={item.productId}
                 className="flex items-center justify-between bg-white rounded-lg shadow-md p-4 mb-4"

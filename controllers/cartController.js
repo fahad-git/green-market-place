@@ -27,13 +27,13 @@ exports.addItemToCart = async (req, res) => {
       cart = new CartModel({ userId, items: [] });
     }
 
-    const existingItem = cart.items.find((item) => item.productId === productId);
+    const existingItem = cart?.items.find((item) => item.productId === productId);
 
     if (existingItem) {
       existingItem.quantity += quantity;
       existingItem.total = existingItem.price * existingItem.quantity;
     } else {
-      cart.items.push({
+      cart?.items.push({
         productId,
         title,
         price,
@@ -65,7 +65,7 @@ exports.updateCartItem = async (req, res) => {
       return res.status(404).json({ message: "Cart not found." });
     }
 
-    const item = cart.items.find((item) => item.productId === productId);
+    const item = cart?.items.find((item) => item.productId === productId);
 
     if (!item) {
       return res.status(404).json({ message: "Item not found in cart." });
@@ -75,7 +75,7 @@ exports.updateCartItem = async (req, res) => {
     item.total = item.price * quantity;
 
     if (item.quantity <= 0) {
-      cart.items = cart.items.filter((item) => item.productId.toString() !== productId);
+      cart.items = cart?.items.filter((item) => item.productId.toString() !== productId);
     }
 
     await cart.save();
@@ -98,7 +98,7 @@ exports.removeCartItem = async (req, res) => {
       return res.status(404).json({ message: "Cart not found." });
     }
 
-    cart.items = cart.items.filter((item) => item.productId !== productId);
+    cart.items = cart?.items.filter((item) => item.productId !== productId);
 
     await cart.save();
     res.status(200).json({ message: "Item removed from cart successfully.", cart });
