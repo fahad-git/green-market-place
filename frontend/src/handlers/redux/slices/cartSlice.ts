@@ -85,7 +85,7 @@ export const removeCartItem = createAsyncThunk<
 
 // Cart slice
 const cartSlice = createSlice({
-  name: "cart",
+  name: "carts",
   initialState,
   reducers: {
     // Synchronous actions (if needed)
@@ -109,7 +109,7 @@ const cartSlice = createSlice({
       )
       .addCase(
         fetchCartItems.rejected,
-        (state, action: PayloadAction<string>) => {
+        (state, action: PayloadAction<any>) => {
           state.isLoading = false;
           state.error = action.payload;
         }
@@ -122,12 +122,12 @@ const cartSlice = createSlice({
       })
       .addCase(
         addCartItem.fulfilled,
-        (state, action: PayloadAction<ICartItem>) => {
+        (state, action: PayloadAction<any>) => {
           state.isLoading = false;
-          state.cart = action.payload as any;
+          state.cart = action.payload
         }
       )
-      .addCase(addCartItem.rejected, (state, action: PayloadAction<string>) => {
+      .addCase(addCartItem.rejected, (state, action: PayloadAction<any>) => {
         state.isLoading = false;
         state.error = action.payload;
       })
@@ -145,7 +145,7 @@ const cartSlice = createSlice({
       )      
       .addCase(
         updateCartItemQuantity.rejected,
-        (state, action: PayloadAction<string>) => {
+        (state, action: PayloadAction<any>) => {
           state.isLoading = false;
           state.error = action.payload;
         }
@@ -165,7 +165,7 @@ const cartSlice = createSlice({
       )
       .addCase(
         removeCartItem.rejected,
-        (state, action: PayloadAction<string>) => {
+        (state, action: PayloadAction<any>) => {
           state.isLoading = false;
           state.error = action.payload;
         }

@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { useAppDispatch, useAppSelector } from "@/src/handlers/redux/hooks";
 import { getProduct } from "@/src/handlers/redux/slices/productSlice";
+import Image from "next/image";
 
 import ProductImage from "@/src/components/productImage";
 import ProductInfo from "@/src/components//productInfo";
@@ -11,6 +12,7 @@ import ProductDetails from "@/src/components/productDetails";
 import Reviews from "@/src/components/reviews";
 import SustainabilityBanner from "@/src/components/SustainabilityBanner";
 import Sustainability from "@/src/components/sustainability";
+import BACK_ARROW_IMAGE from "@/public/images/back-arrow.png";
 
 export default function ProductPage({ params }: { params: { id: string } }) {
   const [mounted, setMounted] = useState(false);
@@ -41,7 +43,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
         className="p-2 bg-gray-200 my-5 mx-5 rounded-full hover:bg-green-100 transition duration-150"
         title="Back"
       >
-        <img src="/images/back-arrow.png" alt="BACK" width={24} height={24} />
+        <Image src={BACK_ARROW_IMAGE} alt="BACK" width={24} height={24} />
       </button>
 
       {/* Sustainability Banner */}

@@ -10,14 +10,11 @@ import { getBlogs } from "@/src/handlers/redux/slices/blogSlice";
 import { toast } from "react-toastify";
 
 export default function Sustainability() {
-  // const [blogs, setBlogs] = useState<IBlog[]>([]);
   const router = useRouter();
 
   const [mounted, setMounted] = useState(false); // Track if component has mounted
   const dispatch = useAppDispatch();
-  const { blogs } = useAppSelector(
-    (state: any) => state.blogs
-  );
+  const { blogs } = useAppSelector((state: any) => state.blogs);
 
   const user = useAppSelector((state: any) => state.auth.user);
 
@@ -39,7 +36,7 @@ export default function Sustainability() {
     router.push("/sustainability/create-blog");
   };
 
-  if (!mounted) return <div className="min-h-screen"></div>; // Avoid rendering mismatched HTML on the server
+  if (!mounted) return <div className="min-h-screen"></div>;
 
   return (
     <div className="min-h-screen container mx-auto py-8 px-4">
@@ -79,9 +76,9 @@ export default function Sustainability() {
               <Image
                 src={blog?.imageFile?.imageUrl || `/images/default-blog.jpg`}
                 alt={blog.title}
-                width={100}
-                height={100}
-                className="w-full h-50 object-cover rounded mb-4"
+                width={120}
+                height={50}
+                className="w-full h-50 object-contain rounded mb-4"
                 priority
               />
               <h2 className="text-xl font-semibold mb-2">{blog.title}</h2>

@@ -111,10 +111,12 @@ const BlogForm: React.FC<BlogFormProps> = ({ onSubmit, initialData }) => {
         {imagePreview && (
           <div className="mt-4">
             <p className="text-gray-600 mb-2">Image Preview:</p>
-            <img
+            <Image
               src={imagePreview}
               alt="Preview"
-              className="w-full h-64 object-cover rounded"
+              className="w-full h-100 object-cover rounded"
+              width={120}
+              height={100}
             />
           </div>
         )}

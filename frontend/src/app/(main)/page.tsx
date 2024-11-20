@@ -28,6 +28,7 @@ export default function Products() {
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
+    console.log("From products...")
     setMounted(true);
     dispatch(getProducts()).then((action) => {
       if (!getProducts.fulfilled.match(action)) {
@@ -42,7 +43,7 @@ export default function Products() {
 
   const handleAddToCart = (product: any) => {
     const existingItem = cart?.items?.find(
-      (item: any) => item.id === product.id
+      (item: any) => item.productId === product.id
     );
     if (existingItem) {
       dispatch(
@@ -52,6 +53,7 @@ export default function Products() {
           quantity: existingItem.quantity + 1,
         })
       );
+      toast.info(`${product.title} quantity updated!`);
     } else {
       dispatch(
         addCartItem({
@@ -64,8 +66,8 @@ export default function Products() {
           quantity: 1,
         })
       );
+      toast.success(`${product.title} added to cart!`);
     }
-    toast.success(`${product.title} added to cart!`);
   };
 
   const handleUpdateQuantity = (product: any, quantity: number) => {

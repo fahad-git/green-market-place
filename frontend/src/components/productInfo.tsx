@@ -1,21 +1,71 @@
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { useAppDispatch, useAppSelector } from "../handlers/redux/hooks";
+import { addCartItem, updateCartItemQuantity } from "../handlers/redux/slices/cartSlice";
 
 export default function ProductInfo({ product }: { product: any }) {
   const [quantity, setQuantity] = useState(1);
+  const router = useRouter();
 
-  const handleAddToCart = () => {
-    if (product?.stock >= quantity && quantity > 0) {
-      toast.success(`${quantity} item(s) added to cart!`);
-    } else {
-      toast.error("Not enough stock available.");
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state: any) => state.auth.user);
+  const cart = useAppSelector((state: any) => state.carts.cart);
+
+  useEffect(() => {
+    const existingItem = cart.items?.find((item: any) => item.productId === product.id);
+    if (existingItem) {
+      setQuantity(existingItem.quantity);
     }
+  }, [cart, product.id]);
+
+  const handleAddOrUpdateToCart = () => {
+    if (!(product?.stock >= quantity && quantity > 0)) {
+      toast.info("Not enough stock available.");
+      return;
+    }
+
+    const existingItem = cart.items?.find(
+      (item: any) => item.productId === product.id
+    );
+
+    if (existingItem) {
+      if (existingItem.quantity === quantity) {
+        toast.info(`Item already in cart with the quantity ${existingItem.quantity}.`);
+        return;
+      }
+      dispatch(
+        updateCartItemQuantity({
+          userId: user.id,
+          productId: product.id,
+          quantity: quantity,
+        })
+      );
+    } else {
+      dispatch(
+        addCartItem({
+          userId: user.id,
+          productId: product.id,
+          title: product.title,
+          price: product.price,
+          carbonFootprintScore: product?.sustainability?.carbonFootprintScore,
+          thumbnail: product.thumbnail,
+          quantity: quantity,
+        })
+      );
+    }
+    toast.success(`${product.title} added to cart!`);
   };
 
   const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseInt(e.target.value);
-    if (value > 0) setQuantity(value);
-    else setQuantity(1); // Default to 1 if invalid input
+    const value = parseInt(e.target.value, 10);
+    if (isNaN(value) || value < 1) {
+      setQuantity(1); // Default to 1 if the value is invalid
+    } else if (value > product.stock) {
+      setQuantity(product.stock); // Cap at max stock
+    } else {
+      setQuantity(value);
+    }
   };
 
   return (
@@ -86,12 +136,15 @@ export default function ProductInfo({ product }: { product: any }) {
               ? "bg-gray-400 cursor-not-allowed"
               : "bg-green-500 hover:bg-green-600 transition-all"
           }`}
-          onClick={handleAddToCart}
+          onClick={handleAddOrUpdateToCart}
           disabled={product.stock < 1}
         >
           Add to Cart
         </button>
-        <button className="flex-1 py-3 px-6 rounded-lg font-semibold bg-blue-500 text-white hover:bg-blue-600 transition-all">
+        <button
+          className="flex-1 py-3 px-6 rounded-lg font-semibold bg-blue-500 text-white hover:bg-blue-600 transition-all"
+          onClick={() => router.push("/cart")}
+        >
           Buy Now
         </button>
       </div>

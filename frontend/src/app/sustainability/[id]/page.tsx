@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { useAppSelector } from "@/src/handlers/redux/hooks";
 import Image from "next/image";
 import BLOG_APIs from "@/src/handlers/apis/blog-apis";
+import BLOD_DEFAULT_IMAGE from "@/public/images/default-blog.jpg";
 
 export default function Blog() {
   const router = useRouter();
@@ -105,10 +106,12 @@ export default function Blog() {
           </div>
           <p className="text-green-600 font-semibold text-lg mb-6">By: {blog?.author}</p>
           <div className="relative h-96 mb-6 rounded-lg overflow-hidden shadow-lg">
-            <img
-              src={blog?.imageFile?.imageUrl || "/images/default-blog.jpg"}
+            <Image
+              src={blog?.imageFile?.imageUrl || BLOD_DEFAULT_IMAGE}
               alt={blog?.title}
               className="w-full h-full object-cover transform transition-transform duration-500 hover:scale-105"
+              width={100}
+              height={100}
             />
           </div>
           <div className="prose prose-lg text-gray-700 leading-relaxed max-w-none text-justify">

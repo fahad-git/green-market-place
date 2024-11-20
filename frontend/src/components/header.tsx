@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import SignInModal from "./signinModal";
 import RegisterModal from "./registerModal";
+import WHITE_LOGO_IMAGE from "@/public/images/gmp-white.png";
+import WHITE_LOGO_IMAGE_SHORT from "@/public/images/gmp-logo-white.png";
 import "../styles/header.css";
 import { useAppDispatch, useAppSelector } from "../handlers/redux/hooks";
 
@@ -69,10 +71,10 @@ export default function Header() {
           className="lg:block hidden text-2xl font-bold text-white"
         >
           <Image
-            src={"/images/gmp-white.png"}
+            src={WHITE_LOGO_IMAGE}
             alt="GMP"
             width={150}
-            height={50}
+            height={150}
             priority
           />
         </Link>
@@ -81,10 +83,10 @@ export default function Header() {
           className="lg:hidden block text-2xl font-bold text-white"
         >
           <Image
-            src={"/images/gmp-logo-white.png"}
+            src={WHITE_LOGO_IMAGE_SHORT}
             alt="GMP"
-            width={100}
-            height={100}
+            width={80}
+            height={80}
             priority
           />
         </Link>
