@@ -12,14 +12,13 @@ import { IActions, IState } from "./interfaces";
 
 
 /**
- *
- * @param newCount: newCount provides the updated count number of the counter
+ * @param email: email provides email of the user for login
+ * @param password: password will be password of the user.
  * @returns it returns an object which contains action type and state payload count with new value for store to update.
  */
 export function loginUser(email: string, password: string): IActions {
   return { type: LOG_IN, payload: {email, password} };
 }
-
 
 /**
  *

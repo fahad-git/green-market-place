@@ -1,7 +1,9 @@
 // routes/productRoutes.js
 const express = require('express');
-const { getProducts, createProduct } = require('../controllers/productController');
+const uploadMiddleware = require('../middlewares/fileMiddleware');
+const { getProducts, getProductById, createProduct, addProductsInBatch } = require('../controllers/productController');
 const { auth } = require('../middlewares/authMiddleware');
+
 const router = express.Router();
 
 /**
@@ -15,6 +17,29 @@ const router = express.Router();
  *         description: List of products
  */
 router.get('/', getProducts);
+
+/**
+ * @swagger
+ * /api/products/{productId}:
+ *   get:
+ *     summary: Get product by id
+ *     tags: [Products]
+ *     parameters:
+ *       - name: productId
+ *         in: path
+ *         required: true
+ *     responses:
+ *       200:
+ *         description: Product found
+ *         content:
+ *           application/octet-stream:
+ *             schema:
+ *               type: string
+ *               format: binary
+ *       404:
+ *         description: File not found
+ */
+router.get('/:id', getProductById);
 
 /**
  * @swagger
@@ -48,5 +73,30 @@ router.get('/', getProducts);
  *         description: Unauthorized
  */
 router.post('/', auth, createProduct);
+
+/**
+ * @swagger
+ * /api/products/batch:
+ *   post:
+ *     summary: Upload a file
+ *     tags: [Products]
+ *     description: Upload a file to the server
+ *     requestBody:
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *                file:
+ *                  type: string
+ *                  format: binary
+ *     responses:
+ *       200:
+ *         description: File uploaded successfully
+ *       400:
+ *         description: No file uploaded or invalid file
+ */
+
+router.post('/batch', uploadMiddleware.single('file'), addProductsInBatch);
 
 module.exports = router;
