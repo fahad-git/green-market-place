@@ -60,7 +60,7 @@ describe('Order Controller - Order Operations', () => {
       const reqBody = { totalPrice: 100 };
 
       const res = await request(app)
-        .post('/api/orders') // Assuming your route for createOrder is '/api/orders'
+        .post('/api/orders')
         .send(reqBody)
         .set('Authorization', `Bearer valid-token`);
 
