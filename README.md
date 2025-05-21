@@ -3,6 +3,8 @@
 ## Overview
 **Green Market Place** is a sustainable product website designed with principles of sustainable web development and user-friendly design. This e-commerce platform not only allows users to explore and purchase sustainable products but also educates them about the product development process. To further its mission of promoting sustainability, the platform features a blog section where users can read and contribute content about sustainability.
 
+A detailed project overview is available in this [video presentation](https://drive.google.com/file/d/1o5LztI5tldneBzAboakmG0Qbwb-ie1sI/view?usp=sharing).
+
 ## Key Features
 - **E-commerce Functionality**: Browse and purchase sustainable products.
 - **Education on Sustainability**: Gain insights into the production process of items.
@@ -34,12 +36,33 @@ The project consists of a **single repository** hosting both backend and fronten
 - **State Management**: Configured with a **persistent Redux store** using **Thunk** middleware for efficient state management and asynchronous actions.
 - **Placement**: The frontend code is located in the `frontend` folder within the repository.
 
+### 3. **Project Structure**
+
+```markdown
+green-market-place/
+├── bin/                # Application entry point
+├── config/             # Configuration files
+├── controllers/        # Route controllers
+├── frontend/           # Frontend assets
+├── middlewares/        # Custom middleware
+├── models/             # Mongoose models
+├── public/             # Static files (CSS, JS, images)
+├── routes/             # Application routes
+├── schemas/            # Data schemas
+├── swagger/            # API documentation
+├── tests/              # Unit and integration tests
+├── app.js              # Main application file
+├── package.json        # Project metadata and dependencies
+└── README.md           # Project documentation
+```
+
 ---
 
 ## Installation and Setup
 
 ### Prerequisites
-- **Node.js**: Ensure you have `v22.9.0` installed (recommended to use [nvm](https://github.com/nvm-sh/nvm)).
+- **Node.js - Backend**: Ensure you have `v22.9.0` installed (recommended to use [nvm](https://github.com/nvm-sh/nvm)).
+- **Node.js - Frontend**: Ensure you have `v20.18.1` installed (recommended to use [nvm](https://github.com/nvm-sh/nvm)).
 - **Git**: For cloning the repository.
 - **MongoDB**: A running MongoDB instance (local or cloud).
 - **Package Manager**: Either npm or yarn.
@@ -90,6 +113,52 @@ The project consists of a **single repository** hosting both backend and fronten
 
 7. **Access the Application**:
    Open your browser and navigate to `http://localhost:3000` (default port for Next.js).
+
+---
+
+## Running Unit Tests
+
+### Backend Unit Tests
+The backend uses **Jest** and **Supertest** for unit and integration testing. Tests are located in the `tests` directory in the root folder.
+
+1. **Install Testing Dependencies** (if not already installed):
+   ```bash
+   npm install --save-dev jest supertest
+
+2. **Run Testss**:
+   ```bash
+   npm test
+
+This executes all test suites and generates a coverage report.
+
+3. **Test Coverage:** To view detailed coverage:
+   ```bash
+   npm run test:coverage
+
+### Frontend Unit Tests
+The frontend uses Jest and React Testing Library for testing components and Redux logic. Tests are located in the `frontend/tests` directory.
+
+1. **Install Testing Dependencies** (if not already installed):
+   ```bash
+   cd frontend
+   npm install --save-dev jest @testing-library/react @testing-library/jest-dom
+   
+2. **Run Testss**:
+   ```bash
+   npm test
+
+This runs all frontend test suites in watch mode (use `--watchAll=false` for CI environments).
+
+3. **Test Coverage:** To view detailed coverage:
+   ```bash
+   npm run test:coverage
+
+---
+
+<img width="1788" alt="dashboard" src="https://github.com/user-attachments/assets/c6cac0f2-8c8d-4d17-b335-124a6351a77c" />
+<img width="1800" alt="product" src="https://github.com/user-attachments/assets/3372ec14-77af-4635-bcf5-4fcc4d08683c" />
+<img width="1800" alt="reviews" src="https://github.com/user-attachments/assets/464cf5b7-5b8d-47d8-a978-9e59a73c7846" />
+
 
 ---
 
