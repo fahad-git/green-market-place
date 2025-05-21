@@ -52,7 +52,6 @@ export default function Header() {
 
   const handleSearch = (e: any) => {
     e.preventDefault();
-    console.log(`Searching for: ${searchTerm}`);
     setSearchTerm("");
   };
 

@@ -9,8 +9,6 @@ export default function Contact() {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    console.log("Submitting message:", { name, email, message });
-    // Implement form submission logic here
   };
 
   return (

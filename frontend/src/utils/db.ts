@@ -11,8 +11,6 @@ export const initDB = async () => {
     return openDB(DB_NAME, 2, {
       // Incremented version to force an upgrade if necessary
       upgrade(db, oldVersion, newVersion) {
-        console.log("DB Upgrade:", oldVersion, "->", newVersion);
-
         // Create blogs object store if not already created
         if (!db.objectStoreNames.contains(BLOG_STORE)) {
           db.createObjectStore(BLOG_STORE, { keyPath: "id" });
