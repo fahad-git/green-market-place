@@ -1,42 +1,44 @@
 // components/RegisterModal.js
-"use client"
-import { useState } from 'react';
-import AUTH_APIs from '../handlers/apis/auth-apis';
-import FILE_APIs from '../handlers/apis/file-apis';
-import { toast } from 'react-toastify';
+"use client";
+import { useState } from "react";
+import AUTH_APIs from "../handlers/apis/auth-apis";
+import FILE_APIs from "../handlers/apis/file-apis";
+import { toast } from "react-toastify";
 
 export default function RegisterModal({ isOpen, onClose }: any) {
-  
   const [formData, setFormData]: any = useState({
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    phone: '',
-    address: '',
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    phone: "",
+    address: "",
     agreeToTerms: false,
     file: null,
   });
-  
+
   const [errors, setErrors]: any = useState({});
   //moving it after hook diclaration.
   if (!isOpen) return null;
-  
+
   const handleChange = (e: any) => {
     const { name, value, type, checked, files } = e.target;
-    setFormData((prev:any) => ({
+    setFormData((prev: any) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : files ? files[0] : value,
+      [name]: type === "checkbox" ? checked : files ? files[0] : value,
     }));
   };
 
   const validateForm = () => {
     const newErrors: any = {};
-    if (!formData.name) newErrors.name = 'Name is required';
-    if (!formData.email) newErrors.email = 'Email is required';
-    if (formData.password.length < 8) newErrors.password = 'Password must be at least 8 characters';
-    if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = 'Passwords do not match';
-    if (!formData.agreeToTerms) newErrors.agreeToTerms = 'You must agree to the terms';
+    if (!formData.name) newErrors.name = "Name is required";
+    if (!formData.email) newErrors.email = "Email is required";
+    if (formData.password.length < 8)
+      newErrors.password = "Password must be at least 8 characters";
+    if (formData.password !== formData.confirmPassword)
+      newErrors.confirmPassword = "Passwords do not match";
+    if (!formData.agreeToTerms)
+      newErrors.agreeToTerms = "You must agree to the terms";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -50,7 +52,7 @@ export default function RegisterModal({ isOpen, onClose }: any) {
       fileFormData.append("file", formData["file"], formData["file"].name);
       const uploadFileResponse = await FILE_APIs.uploadFile(fileFormData);
 
-      if(uploadFileResponse.status === 400){
+      if (uploadFileResponse.status === 400) {
         // toast error
         toast.error(uploadFileResponse.data.error);
         return;
@@ -64,11 +66,14 @@ export default function RegisterModal({ isOpen, onClose }: any) {
       registrationData.append("password", formData["password"]);
       registrationData.append("phone", formData["phone"]);
       registrationData.append("agreeToTerms", formData["agreeToTerms"]);
-      registrationData.append("avatar", JSON.stringify(uploadFileResponse.data.file));
+      registrationData.append(
+        "avatar",
+        JSON.stringify(uploadFileResponse.data.file)
+      );
 
       const registerResponse = await AUTH_APIs.registerUser(registrationData);
-      
-      if(registerResponse.status === 200 || registerResponse.status === 201){
+
+      if (registerResponse.status === 200 || registerResponse.status === 201) {
         // registered successfully.
         toast.success("User registered successfully");
         onClose();
@@ -77,10 +82,9 @@ export default function RegisterModal({ isOpen, onClose }: any) {
         await FILE_APIs.deleteFile(registrationData["avatar"].filename);
         toast.error("Failed to register user.");
       }
-
     } catch (error: any) {
       toast.error(error.response.data.message, {
-        position: "top-right"
+        position: "top-right",
       });
     }
   };
@@ -90,7 +94,6 @@ export default function RegisterModal({ isOpen, onClose }: any) {
       <div className="bg-white p-8 rounded-md shadow-lg max-w-md w-full">
         <h2 className="text-2xl font-semibold mb-4">Register</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
-          
           <InputField
             label="Name"
             name="name"
@@ -99,7 +102,7 @@ export default function RegisterModal({ isOpen, onClose }: any) {
             error={errors.name}
             onChange={handleChange}
           />
-          
+
           <InputField
             label="Email"
             name="email"
@@ -114,8 +117,8 @@ export default function RegisterModal({ isOpen, onClose }: any) {
             name="phone"
             type="text"
             value={formData.phone}
-            onChange={handleChange} 
-            error={errors.phone}         
+            onChange={handleChange}
+            error={errors.phone}
           />
 
           <InputField
@@ -126,7 +129,6 @@ export default function RegisterModal({ isOpen, onClose }: any) {
             error={errors.address}
             onChange={handleChange}
           />
-
 
           <InputField
             label="Password"
@@ -147,7 +149,9 @@ export default function RegisterModal({ isOpen, onClose }: any) {
           />
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">Upload Avatar</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Upload Avatar
+            </label>
             <input
               type="file"
               name="file"

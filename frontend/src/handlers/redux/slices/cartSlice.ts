@@ -106,9 +106,7 @@ export const clearCart = createAsyncThunk<
 const cartSlice = createSlice({
   name: "carts",
   initialState,
-  reducers: {
-
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       // Fetch cart items

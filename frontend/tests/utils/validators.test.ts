@@ -1,16 +1,29 @@
-import { loginValidator, validateEmail, emptyCheck } from "../../src/utils/validators";
+import {
+  loginValidator,
+  validateEmail,
+  emptyCheck,
+} from "../../src/utils/validators";
 
 describe("validateEmail", () => {
   it("returns error when email is empty", () => {
-    expect(validateEmail("")).toEqual({ error: true, message: "Email cannot be empty." });
+    expect(validateEmail("")).toEqual({
+      error: true,
+      message: "Email cannot be empty.",
+    });
   });
 
   it("returns error for invalid email format", () => {
-    expect(validateEmail("invalid-email")).toEqual({ valid: true, message: "Invalid email format." });
+    expect(validateEmail("invalid-email")).toEqual({
+      valid: true,
+      message: "Invalid email format.",
+    });
   });
 
   it("returns no error for valid email", () => {
-    expect(validateEmail("test@example.com")).toEqual({ error: false, message: "" });
+    expect(validateEmail("test@example.com")).toEqual({
+      error: false,
+      message: "",
+    });
   });
 });
 
@@ -26,11 +39,17 @@ describe("emptyCheck", () => {
 
 describe("validatePassword", () => {
   it("returns error when password is empty", () => {
-    expect(validatePassword("")).toEqual({ error: true, message: "Password is required" });
+    expect(validatePassword("")).toEqual({
+      error: true,
+      message: "Password is required",
+    });
   });
 
   it("returns no error when password is provided", () => {
-    expect(validatePassword("mypassword")).toEqual({ error: false, message: "" });
+    expect(validatePassword("mypassword")).toEqual({
+      error: false,
+      message: "",
+    });
   });
 });
 
@@ -54,11 +73,10 @@ describe("loginValidator", () => {
     expect(result).toEqual({
       error: false,
       email: "",
-      password: ""
+      password: "",
     });
   });
 });
 function validatePassword(arg0: string): any {
-    throw new Error("Function not implemented.");
+  throw new Error("Function not implemented.");
 }
-

@@ -1,28 +1,28 @@
 // handlers/redux/slices/authSlice.js
 
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import APIs from '../../apis/auth-apis';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import APIs from "../../apis/auth-apis";
 
 // Thunk for login async action
 export const loginUser = createAsyncThunk(
-  'auth/loginUser',
-  async (credentials:any, { rejectWithValue }) => {
+  "auth/loginUser",
+  async (credentials: any, { rejectWithValue }) => {
     try {
       const response = await APIs.loginUser(credentials);
       const user = response.data;
-      if(user?.avatar){
+      if (user?.avatar) {
         user.avatar = JSON.parse(user.avatar);
         user.avatar.avatarUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/file/${user.avatar?.filename}`;
       }
       return user;
     } catch (error: any) {
-      return rejectWithValue(error.response?.data?.message || 'Login failed');
+      return rejectWithValue(error.response?.data?.message || "Login failed");
     }
   }
 );
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState: {
     user: null,
     isLoading: false,

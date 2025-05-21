@@ -28,7 +28,9 @@ export default function ProductImage({ product }: { product: any }) {
         height={500}
         className="w-full h-auto object-cover rounded-lg shadow-lg"
         priority
-        onLoad={imageState === "default" ? handleThumbnailLoad : handleHighResLoad}
+        onLoad={
+          imageState === "default" ? handleThumbnailLoad : handleHighResLoad
+        }
       />
     </div>
   );

@@ -16,24 +16,26 @@ describe("productSlice reducer", () => {
   };
 
   const dummyProduct: IProduct = {
-      id: 1,
-      name: "Test Product",
-      description: "Description",
-      price: 100,
-      title: "",
-      thumbnail: "",
-      rating: 0,
-      stock: 0,
-      category: "",
-      brand: "",
-      imageFile: {
-          imageUrl: "",
-          filename: ""
-      }
+    id: 1,
+    name: "Test Product",
+    description: "Description",
+    price: 100,
+    title: "",
+    thumbnail: "",
+    rating: 0,
+    stock: 0,
+    category: "",
+    brand: "",
+    imageFile: {
+      imageUrl: "",
+      filename: "",
+    },
   };
 
   it("should return initial state", () => {
-    expect(productReducer(undefined, { type: "unknown" })).toEqual(initialState);
+    expect(productReducer(undefined, { type: "unknown" })).toEqual(
+      initialState
+    );
   });
 
   describe("getProducts", () => {
@@ -44,15 +46,26 @@ describe("productSlice reducer", () => {
     });
 
     it("should handle fulfilled", () => {
-      const action = { type: getProducts.fulfilled.type, payload: [dummyProduct] };
+      const action = {
+        type: getProducts.fulfilled.type,
+        payload: [dummyProduct],
+      };
       const state = productReducer(initialState, action);
-      expect(state).toEqual({ ...initialState, isLoading: false, products: [dummyProduct] });
+      expect(state).toEqual({
+        ...initialState,
+        isLoading: false,
+        products: [dummyProduct],
+      });
     });
 
     it("should handle rejected", () => {
       const action = { type: getProducts.rejected.type, payload: "error" };
       const state = productReducer(initialState, action);
-      expect(state).toEqual({ ...initialState, isLoading: false, error: "error" });
+      expect(state).toEqual({
+        ...initialState,
+        isLoading: false,
+        error: "error",
+      });
     });
   });
 
@@ -71,13 +84,21 @@ describe("productSlice reducer", () => {
     it("should handle fulfilled", () => {
       const action = { type: getProduct.fulfilled.type, payload: dummyProduct };
       const state = productReducer(initialState, action);
-      expect(state).toEqual({ ...initialState, isLoading: false, selectedProduct: dummyProduct });
+      expect(state).toEqual({
+        ...initialState,
+        isLoading: false,
+        selectedProduct: dummyProduct,
+      });
     });
 
     it("should handle rejected", () => {
       const action = { type: getProduct.rejected.type, payload: "error" };
       const state = productReducer(initialState, action);
-      expect(state).toEqual({ ...initialState, isLoading: false, error: "error" });
+      expect(state).toEqual({
+        ...initialState,
+        isLoading: false,
+        error: "error",
+      });
     });
   });
 
@@ -112,11 +133,18 @@ describe("productSlice reducer", () => {
     it("should handle pending", () => {
       const action = { type: deleteProduct.pending.type };
       const state = productReducer(populatedState, action);
-      expect(state).toEqual({ ...populatedState, isLoading: true, error: null });
+      expect(state).toEqual({
+        ...populatedState,
+        isLoading: true,
+        error: null,
+      });
     });
 
     it("should handle fulfilled", () => {
-      const action = { type: deleteProduct.fulfilled.type, payload: dummyProduct.id.toString() };
+      const action = {
+        type: deleteProduct.fulfilled.type,
+        payload: dummyProduct.id.toString(),
+      };
       const state = productReducer(populatedState, action);
       expect(state.products).not.toContainEqual(dummyProduct);
       expect(state.isLoading).toBe(false);
@@ -140,11 +168,18 @@ describe("productSlice reducer", () => {
     it("should handle pending", () => {
       const action = { type: updateProduct.pending.type };
       const state = productReducer(populatedState, action);
-      expect(state).toEqual({ ...populatedState, isLoading: true, error: null });
+      expect(state).toEqual({
+        ...populatedState,
+        isLoading: true,
+        error: null,
+      });
     });
 
     it("should handle fulfilled", () => {
-      const action = { type: updateProduct.fulfilled.type, payload: updatedProduct };
+      const action = {
+        type: updateProduct.fulfilled.type,
+        payload: updatedProduct,
+      };
       const state = productReducer(populatedState, action);
       expect(state.products[0].name).toBe("Updated Name");
       expect(state.isLoading).toBe(false);

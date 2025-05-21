@@ -47,15 +47,26 @@ describe("cartSlice reducer", () => {
     });
 
     it("handles fulfilled", () => {
-      const action = { type: fetchCartItems.fulfilled.type, payload: dummyCart };
+      const action = {
+        type: fetchCartItems.fulfilled.type,
+        payload: dummyCart,
+      };
       const state = cartReducer(initialState, action);
-      expect(state).toEqual({ ...initialState, isLoading: false, cart: dummyCart });
+      expect(state).toEqual({
+        ...initialState,
+        isLoading: false,
+        cart: dummyCart,
+      });
     });
 
     it("handles rejected", () => {
       const action = { type: fetchCartItems.rejected.type, payload: "error" };
       const state = cartReducer(initialState, action);
-      expect(state).toEqual({ ...initialState, isLoading: false, error: "error" });
+      expect(state).toEqual({
+        ...initialState,
+        isLoading: false,
+        error: "error",
+      });
     });
   });
 
@@ -91,14 +102,20 @@ describe("cartSlice reducer", () => {
     });
 
     it("handles fulfilled", () => {
-      const action = { type: updateCartItemQuantity.fulfilled.type, payload: dummyCart };
+      const action = {
+        type: updateCartItemQuantity.fulfilled.type,
+        payload: dummyCart,
+      };
       const state = cartReducer(initialState, action);
       expect(state.cart).toEqual(dummyCart);
       expect(state.isLoading).toBe(false);
     });
 
     it("handles rejected", () => {
-      const action = { type: updateCartItemQuantity.rejected.type, payload: "error" };
+      const action = {
+        type: updateCartItemQuantity.rejected.type,
+        payload: "error",
+      };
       const state = cartReducer(initialState, action);
       expect(state.error).toBe("error");
       expect(state.isLoading).toBe(false);
@@ -114,7 +131,10 @@ describe("cartSlice reducer", () => {
     });
 
     it("handles fulfilled", () => {
-      const action = { type: removeCartItem.fulfilled.type, payload: dummyCart };
+      const action = {
+        type: removeCartItem.fulfilled.type,
+        payload: dummyCart,
+      };
       const state = cartReducer(initialState, action);
       expect(state.cart).toEqual(dummyCart);
       expect(state.isLoading).toBe(false);
@@ -137,7 +157,12 @@ describe("cartSlice reducer", () => {
     });
 
     it("handles fulfilled", () => {
-      const emptyCart = { ...dummyCart, items: [], totalPrice: 0, totalQuantity: 0 };
+      const emptyCart = {
+        ...dummyCart,
+        items: [],
+        totalPrice: 0,
+        totalQuantity: 0,
+      };
       const action = { type: clearCart.fulfilled.type, payload: emptyCart };
       const state = cartReducer(initialState, action);
       expect(state.cart).toEqual(emptyCart);

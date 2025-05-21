@@ -2,7 +2,7 @@ import {
   defaultReducer,
   initialState,
   counterReducer,
-} from "../../src/handlers/redux/reducers"; 
+} from "../../src/handlers/redux/reducers";
 import rootReducer from "../../src/handlers/redux/reducers";
 import {
   INIT_STORE,
@@ -17,8 +17,13 @@ describe("defaultReducer", () => {
   });
 
   it("should reset to initial state with INIT_STORE_DEFAULT", () => {
-    const modifiedState = { ...initialState, user: { ...initialState.user, name: "Test" } };
-    const result = defaultReducer(modifiedState, { type: INIT_STORE_DEFAULT } as any);
+    const modifiedState = {
+      ...initialState,
+      user: { ...initialState.user, name: "Test" },
+    };
+    const result = defaultReducer(modifiedState, {
+      type: INIT_STORE_DEFAULT,
+    } as any);
     expect(result).toEqual(initialState);
   });
 

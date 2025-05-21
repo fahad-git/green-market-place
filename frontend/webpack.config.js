@@ -1,4 +1,4 @@
-const { GenerateSW } = require('workbox-webpack-plugin');
+const { GenerateSW } = require("workbox-webpack-plugin");
 
 module.exports = {
   plugins: [
@@ -8,15 +8,15 @@ module.exports = {
       runtimeCaching: [
         {
           urlPattern: /.*\.(?:png|jpg|jpeg|svg|gif|js|css|html)$/,
-          handler: 'CacheFirst',
+          handler: "CacheFirst",
         },
         {
           urlPattern: /\/api\/blogs/,
-          handler: 'NetworkFirst',
+          handler: "NetworkFirst",
         },
         {
           urlPattern: /\/api\/products/,
-          handler: 'NetworkFirst',
+          handler: "NetworkFirst",
         },
       ],
     }),

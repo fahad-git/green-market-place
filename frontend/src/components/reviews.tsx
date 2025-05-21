@@ -29,7 +29,9 @@ export default function Reviews({ product }: { product: any }) {
             <div key={index} className="p-4 bg-white rounded-lg shadow-md">
               <div className="flex justify-between items-center mb-2">
                 <h3 className="text-lg font-semibold">{review.reviewerName}</h3>
-                <div className="flex items-center">{renderStars(review.rating)}</div>
+                <div className="flex items-center">
+                  {renderStars(review.rating)}
+                </div>
               </div>
               <p className="text-gray-600">{review.comment}</p>
               <small className="text-gray-500">

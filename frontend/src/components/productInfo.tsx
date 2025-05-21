@@ -2,7 +2,10 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useAppDispatch, useAppSelector } from "../handlers/redux/hooks";
-import { addCartItem, updateCartItemQuantity } from "../handlers/redux/slices/cartSlice";
+import {
+  addCartItem,
+  updateCartItemQuantity,
+} from "../handlers/redux/slices/cartSlice";
 
 export default function ProductInfo({ product }: { product: any }) {
   const [quantity, setQuantity] = useState(1);
@@ -13,7 +16,9 @@ export default function ProductInfo({ product }: { product: any }) {
   const cart = useAppSelector((state: any) => state.carts.cart);
 
   useEffect(() => {
-    const existingItem = cart?.items?.find((item: any) => item.productId === product.id);
+    const existingItem = cart?.items?.find(
+      (item: any) => item.productId === product.id
+    );
     if (existingItem) {
       setQuantity(existingItem.quantity);
     }
@@ -31,7 +36,9 @@ export default function ProductInfo({ product }: { product: any }) {
 
     if (existingItem) {
       if (existingItem.quantity === quantity) {
-        toast.info(`Item already in cart with the quantity ${existingItem.quantity}.`);
+        toast.info(
+          `Item already in cart with the quantity ${existingItem.quantity}.`
+        );
         return;
       }
       dispatch(
