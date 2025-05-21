@@ -1,10 +1,11 @@
 /**
- * @description: This file contains main layout of the app. This layout will be part of every page.
- *               To make redux store working, it is necessary wrape other layouts in this main layout.
+ * @description: This file contains the main layout of the app. This layout will be part of every page.
+ *               To make a redux store work, it is necessary to wrap other layouts in this main layout.
  */
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+
 import StoreProvider from "./StoreProvider";
 import Header from "../components/header";
 import Footer from "../components/footer";
@@ -26,14 +27,10 @@ const openSansItalic = localFont({
 export const metadata: Metadata = {
   title: "green-market-place",
   description:
-    "This application is created in Specialization in Web Technology project.",
+    "This application is created in the Specialization in Web Technology project.",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
       <body
@@ -41,6 +38,7 @@ export default function RootLayout({
         suppressHydrationWarning={true}
       >
         <StoreProvider>
+          
           <ToastContainer
             position="bottom-right"
             autoClose={3000}
@@ -53,9 +51,13 @@ export default function RootLayout({
             pauseOnHover
             theme="light"
           />
+          
           <Header />
+          
           {children}
+          
           <Footer />
+          
         </StoreProvider>
       </body>
     </html>
