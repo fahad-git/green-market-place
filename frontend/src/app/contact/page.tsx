@@ -1,16 +1,14 @@
 // pages/contact.js
-"use client"
-import { useState } from 'react';
+"use client";
+import { useState } from "react";
 
 export default function Contact() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    console.log('Submitting message:', { name, email, message });
-    // Implement form submission logic here
   };
 
   return (
@@ -20,18 +18,31 @@ export default function Contact() {
 
         {/* Company Details Section */}
         <div className="bg-white p-6 rounded-md shadow-md mb-8">
-          <h2 className="text-xl font-semibold mb-4">Our Location & Contact Info</h2>
+          <h2 className="text-xl font-semibold mb-4">
+            Our Location & Contact Info
+          </h2>
           <p className="text-gray-700 mb-2">
-            <strong>Address:</strong> Kalkvegan X H0XX1, Green Market Place, Gjøvik 2818, Norway
+            <strong>Address:</strong> Kalkvegan X H0XX1, Green Market Place,
+            Gjøvik 2818, Norway
           </p>
           <p className="text-gray-700 mb-2">
-            <strong>Phone:</strong> <a href="tel:+1234567890" className="text-blue-600 hover:underline">+47 40000001</a>
+            <strong>Phone:</strong>{" "}
+            <a href="tel:+1234567890" className="text-blue-600 hover:underline">
+              +47 40000001
+            </a>
           </p>
           <p className="text-gray-700 mb-2">
-            <strong>Email:</strong> <a href="mailto:support@shoplogo.com" className="text-blue-600 hover:underline">support@gmp.com</a>
+            <strong>Email:</strong>{" "}
+            <a
+              href="mailto:support@shoplogo.com"
+              className="text-blue-600 hover:underline"
+            >
+              support@gmp.com
+            </a>
           </p>
           <p className="text-gray-700 mb-4">
-            Our customer service team is available Monday to Friday, 8 AM to 3 PM.
+            Our customer service team is available Monday to Friday, 8 AM to 3
+            PM.
           </p>
           <iframe
             className="w-full h-64 border-0 rounded-md"
@@ -42,11 +53,15 @@ export default function Contact() {
 
         {/* Contact Form */}
         <div className="bg-white p-6 rounded-md shadow-md">
-          <h2 className="text-xl font-semibold mb-6 text-center">Send Us a Message</h2>
+          <h2 className="text-xl font-semibold mb-6 text-center">
+            Send Us a Message
+          </h2>
 
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700">Name</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Name
+              </label>
               <input
                 type="text"
                 value={name}
@@ -58,7 +73,9 @@ export default function Contact() {
             </div>
 
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700">Email</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Email
+              </label>
               <input
                 type="email"
                 value={email}
@@ -70,7 +87,9 @@ export default function Contact() {
             </div>
 
             <div className="mb-6">
-              <label className="block text-sm font-medium text-gray-700">Message</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Message
+              </label>
               <textarea
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}

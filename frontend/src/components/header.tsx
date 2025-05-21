@@ -27,7 +27,7 @@ export default function Header() {
   // Close dropdown when clicking outside
   useEffect(() => {
     setMounted(true);
-    
+
     document.addEventListener("mousedown", handleOutsideClick);
 
     return () => {
@@ -36,11 +36,10 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    if(!user){
+    if (!user) {
       setDropdownOpen(false);
     }
-  }, [user])
-
+  }, [user]);
 
   const handleOutsideClick = (event: MouseEvent) => {
     if (
@@ -53,7 +52,6 @@ export default function Header() {
 
   const handleSearch = (e: any) => {
     e.preventDefault();
-    console.log(`Searching for: ${searchTerm}`);
     setSearchTerm("");
   };
 

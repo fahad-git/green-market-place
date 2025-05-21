@@ -4,10 +4,5 @@
 
 "use client";
 export default function Home() {
-
-  return (
-    <div>
-        Hello Page
-    </div>
-  );
+  return <div>Hello Page</div>;
 }

@@ -33,11 +33,11 @@ export default function Blog() {
     }
   }, [id]);
 
-
   const handleDeleteBlog = async () => {
+    const confirmed = confirm(
+      "Are you sure you want to delete this blog? This action cannot be undone."
+    );
 
-    const confirmed = confirm("Are you sure you want to delete this blog? This action cannot be undone.");
-    
     if (confirmed) {
       try {
         const response = await BLOG_APIs.deleteBlog(id as any);
@@ -46,19 +46,17 @@ export default function Blog() {
           router.push("/sustainability");
         }
       } catch (error: any) {
-        console.log(`ERROR: ${error?.message}`)
+        console.log(`ERROR: ${error?.message}`);
         toast.error("Failed to delete blog.");
       }
     }
   };
-  
 
   if (!mounted) return <div className="min-h-screen bg-gray-50"></div>;
 
   return (
     <div className="min-h-screen py-10 from-green-100 via-white to-green-100 flex items-center justify-center">
       <div className="w-full max-w-7xl bg-white rounded-xl shadow-lg overflow-hidden transition-all hover:shadow-2xl">
-        
         {/* Toolbar Section for Action Buttons */}
         <div className="flex justify-between items-center p-6 bg-white rounded-t-xl">
           <button
@@ -66,45 +64,74 @@ export default function Blog() {
             className="p-2 bg-gray-200 rounded-full hover:bg-green-100 transition duration-150"
             title="Back"
           >
-            <Image src="/images/back-arrow.png" alt="BACK" width={24} height={24} />
+            <Image
+              src="/images/back-arrow.png"
+              alt="BACK"
+              width={24}
+              height={24}
+            />
           </button>
 
-        { (user?.id == blog?.authorId) &&
-          <div className="flex space-x-4 text-gray-600">
-            <button
-              onClick={() => router.push(`/sustainability/${id}/edit-blog`)}
-              className="p-3 bg-gray-200 rounded-full hover:bg-blue-100 hover:text-blue-600 transition duration-150"
-              title="Edit Blog"
-            >
-              <Image src="/images/edit.png" alt="EDIT" width={24} height={24} />
-            </button>
-            <button
-              onClick={handleDeleteBlog}
-              className="p-3 bg-gray-200 rounded-full hover:bg-red-100 hover:text-red-600 transition duration-150"
-              title="Delete Blog"
-            >
-              <Image src="/images/delete.png" alt="DELETE" width={24} height={24} />
-            </button>
-          </div>
-        }
+          {user?.id == blog?.authorId && (
+            <div className="flex space-x-4 text-gray-600">
+              <button
+                onClick={() => router.push(`/sustainability/${id}/edit-blog`)}
+                className="p-3 bg-gray-200 rounded-full hover:bg-blue-100 hover:text-blue-600 transition duration-150"
+                title="Edit Blog"
+              >
+                <Image
+                  src="/images/edit.png"
+                  alt="EDIT"
+                  width={24}
+                  height={24}
+                />
+              </button>
+              <button
+                onClick={handleDeleteBlog}
+                className="p-3 bg-gray-200 rounded-full hover:bg-red-100 hover:text-red-600 transition duration-150"
+                title="Delete Blog"
+              >
+                <Image
+                  src="/images/delete.png"
+                  alt="DELETE"
+                  width={24}
+                  height={24}
+                />
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Blog Content */}
         <div className="p-10">
-          <h1 className="text-5xl font-extrabold mb-4 text-gray-800 leading-tight">{blog?.title}</h1>
+          <h1 className="text-5xl font-extrabold mb-4 text-gray-800 leading-tight">
+            {blog?.title}
+          </h1>
           <div className="text-gray-500 text-sm flex space-x-4 mb-6">
             <span className="flex items-center space-x-1">
-              <Image src="/images/calendar.png" alt="Published Date" width={16} height={16} />
+              <Image
+                src="/images/calendar.png"
+                alt="Published Date"
+                width={16}
+                height={16}
+              />
               <span>Published: {blog?.publishedDate}</span>
             </span>
             {blog?.updatedDate && (
               <span className="flex items-center space-x-1">
-                <Image src="/images/updated.png" alt="Updated Date" width={16} height={16} />
+                <Image
+                  src="/images/updated.png"
+                  alt="Updated Date"
+                  width={16}
+                  height={16}
+                />
                 <span>Updated: {blog.updatedDate}</span>
               </span>
             )}
           </div>
-          <p className="text-green-600 font-semibold text-lg mb-6">By: {blog?.author}</p>
+          <p className="text-green-600 font-semibold text-lg mb-6">
+            By: {blog?.author}
+          </p>
           <div className="relative h-96 mb-6 rounded-lg overflow-hidden shadow-lg">
             <Image
               src={blog?.imageFile?.imageUrl || BLOD_DEFAULT_IMAGE}

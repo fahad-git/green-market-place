@@ -22,10 +22,9 @@ export const initialState: IState = {
     refreshToken: "",
     phone: "",
     address: "",
-    avatar: ""
+    avatar: "",
   },
 };
-
 
 /**
  *

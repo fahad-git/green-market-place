@@ -22,9 +22,9 @@ export default function CartPage() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    if(!user && !user?.id){
+    if (!user && !user?.id) {
       router.push("/");
-      toast.info("You must login to see the cart.")
+      toast.info("You must login to see the cart.");
     }
 
     setMounted(true);
@@ -39,7 +39,8 @@ export default function CartPage() {
 
   // Calculate total carbon footprint
   const totalCarbonFootprintScore = cart?.items?.reduce(
-    (total: number, item: any) => total + item.carbonFootprintScore * item.quantity,
+    (total: number, item: any) =>
+      total + item.carbonFootprintScore * item.quantity,
     0
   );
 
@@ -49,7 +50,11 @@ export default function CartPage() {
       toast.info("Item removed from cart.");
     } else {
       dispatch(
-        updateCartItemQuantity({ userId: user?.id, productId: productId, quantity })
+        updateCartItemQuantity({
+          userId: user?.id,
+          productId: productId,
+          quantity,
+        })
       );
       toast.success("Cart updated.");
     }
@@ -82,8 +87,9 @@ export default function CartPage() {
           </h2>
           <p className="text-gray-700 mt-2">
             The items in your cart have a total carbon footprint score of{" "}
-            <strong>{totalCarbonFootprintScore}</strong>. By choosing sustainable
-            options, you are actively contributing to a healthier planet.
+            <strong>{totalCarbonFootprintScore}</strong>. By choosing
+            sustainable options, you are actively contributing to a healthier
+            planet.
           </p>
           <p className="text-gray-600 mt-1">
             Small actions can make a big difference. Keep up the good work!
