@@ -1,10 +1,10 @@
 {
-  "name": "ncc-no-app",
+  "name": "Green Market Place",
   "version": "1.0.0",
-  "description": "The National Coordination Center for Research and Innovation in Cyber ​​Security (NCC-NO) is administered by NSM and the Research Council.",
+  "description": "Green Market Place is a sustainable product website designed with principles of sustainable web development and user-friendly design.",
   "main": "index.js",
-  "repository": "git@github.com:ncr-no/ncc-no-app.git",
-  "author": "mmpeal <md.m.i.peal@ntnu.no>",
+  "repository": "git@github.com:fahad-git/green-market-place.git",
+  "author": "mfahad",
   "license": "MIT",
   "private": true,
   "scripts": {
