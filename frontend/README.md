@@ -1,157 +1,190 @@
-# ncc-no-app
+# Green Market Place
 
-The National Coordination Center for Research and Innovation in Cyber ​​Security (NCC-NO) is administered by NSM and the Research Council.
+## Overview
+**Green Market Place** is a sustainable product website designed with principles of sustainable web development and user-friendly design. This e-commerce platform not only allows users to explore and purchase sustainable products but also educates them about the product development process. To further its mission of promoting sustainability, the platform features a blog section where users can read and contribute content about sustainability.
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+A detailed project overview is available in this [video presentation](https://drive.google.com/file/d/1o5LztI5tldneBzAboakmG0Qbwb-ie1sI/view?usp=sharing).
 
-## Getting Started
+## Key Features
+- **E-commerce Functionality**: Browse and purchase sustainable products.
+- **Education on Sustainability**: Gain insights into the production process of items.
+- **Integrated Blog System**: Read and write articles related to sustainability.
+- **Sustainable Web Development Practices**: Designed with eco-friendly web principles.
 
-First, run the development server:
+---
+![GMP](https://github.com/user-attachments/assets/06833d04-2f3a-4eec-adbc-c839bada13d3)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## Project Structure
+
+The project consists of a **single repository** hosting both backend and frontend codebases.
+
+### 1. **Backend**
+- **Framework**: Built on **Express.js**.
+- **Database**: Uses **MongoDB** for storing data.
+- **Environment Configuration**: The `.env` file must include the following:
+  - `MONGO_URI`: Connection string to your MongoDB instance.
+  - `JWT_SECRET`: Secret key for signing JSON Web Tokens (JWT).
+- **Node.js Version**: The project uses Node.js version `v22.9.0`, specified in the `.nvmrc` file for environment consistency.
+- **Code Quality Tools**:
+  - **Prettier**: For consistent code formatting.
+  - **ESLint**: This is used to identify and fix JavaScript code issues.
+
+### 2. **Frontend**
+- **Framework**: Developed using **Next.js**.
+- **State Management**: Configured with a **persistent Redux store** using **Thunk** middleware for efficient state management and asynchronous actions.
+- **Placement**: The frontend code is located in the `frontend` folder within the repository.
+
+### 3. **Project Structure**
+
+```markdown
+green-market-place/
+├── bin/                # Application entry point
+├── config/             # Configuration files
+├── controllers/        # Route controllers
+├── frontend/           # Frontend assets
+├── middlewares/        # Custom middleware
+├── models/             # Mongoose models
+├── public/             # Static files (CSS, JS, images)
+├── routes/             # Application routes
+├── schemas/            # Data schemas
+├── swagger/            # API documentation
+├── tests/              # Unit and integration tests
+├── app.js              # Main application file
+├── package.json        # Project metadata and dependencies
+└── README.md           # Project documentation
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Installation and Setup
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Prerequisites
+- **Node.js - Backend**: Ensure you have `v22.9.0` installed (recommended to use [nvm](https://github.com/nvm-sh/nvm)).
+- **Node.js - Frontend**: Ensure you have `v20.18.1` installed (recommended to use [nvm](https://github.com/nvm-sh/nvm)).
+- **Git**: For cloning the repository.
+- **MongoDB**: A running MongoDB instance (local or cloud).
+- **Package Manager**: Either npm or yarn.
 
-## Learn More
+### Steps to Run the Project
+1. **Clone the Repository**:
+   ```bash
+   git clone git@github.com:fahad-git/green-market-place.git
+   cd green-market-place
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+2. **Set Node Version**:
+   ```bash
+   nvm use
+   ```
+   If `nvm` is not installed, install Node.js version `v22.9.0` manually.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. **Install Dependencies**:
+   Navigate to the root directory and run:
+   ```bash
+   npm install
+   ```
+   Repeat the process in the `frontend` directory:
+   ```bash
+   cd frontend
+   npm install
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+4. **Configure Environment Variables**:
+   In the backend root directory, create a `.env` file and configure the following:
+   ```env
+   MONGO_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/<database-name>?retryWrites=true&w=majority
+   JWT_SECRET=your-secret-key
+   ```
+   Replace `<username>`, `<password>`, `<database-name>`, and `your-secret-key` with your specific details.
 
-## Deploy on Vercel
+5. **Run the Backend**:
+   In the root directory:
+   ```bash
+   npm start
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+6. **Run the Frontend**:
+   In the `frontend` directory:
+   ```bash
+   npm run dev
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+7. **Access the Application**:
+   Open your browser and navigate to `http://localhost:3000` (default port for Next.js).
 
-# Building and Running the Docker Container
+---
 
-## Build the Docker Container
+## Running Unit Tests
 
-To build the Docker image, run the following command:
+### Backend Unit Tests
+The backend uses **Jest** and **Supertest** for unit and integration testing. Tests are located in the `tests` directory in the root folder.
 
-```
-docker build -t ncc-no-app .
-```
+1. **Install Testing Dependencies** (if not already installed):
+   ```bash
+   npm install --save-dev jest supertest
 
-This will create a Docker image with the tag ncc-no-app using the Dockerfile in the current directory.
+2. **Run Testss**:
+   ```bash
+   npm test
 
-## Running the Docker Container
+This executes all test suites and generates a coverage report.
 
-Once the image is built, you can run the container using the command:
+3. **Test Coverage:** To view detailed coverage:
+   ```bash
+   npm run test:coverage
 
-```
-docker run -dp 3000:3000 ncc-no-app
+### Frontend Unit Tests
+The frontend uses Jest and React Testing Library for testing components and Redux logic. Tests are located in the `frontend/tests` directory.
 
-```
+1. **Install Testing Dependencies** (if not already installed):
+   ```bash
+   cd frontend
+   npm install --save-dev jest @testing-library/react @testing-library/jest-dom
+   
+2. **Run Testss**:
+   ```bash
+   npm test
 
-This will start the container and map `port 3000` of the container to `port 3000` on the host machine.
+This runs all frontend test suites in watch mode (use `--watchAll=false` for CI environments).
 
-## Verifying the Running Container
+3. **Test Coverage:** To view detailed coverage:
+   ```bash
+   npm run test:coverage
 
-To verify that the container is running, use the following command:
+---
 
-```
-docker ps
-```
+<img width="1788" alt="dashboard" src="https://github.com/user-attachments/assets/c6cac0f2-8c8d-4d17-b335-124a6351a77c" />
+<img width="1800" alt="product" src="https://github.com/user-attachments/assets/3372ec14-77af-4635-bcf5-4fcc4d08683c" />
+<img width="1800" alt="reviews" src="https://github.com/user-attachments/assets/464cf5b7-5b8d-47d8-a978-9e59a73c7846" />
 
-This will list all running containers, showing the `CONTAINER_ID` and other information.
 
-## Start and Stop an Existing Container
+---
 
-To start or stop an already created container, use the following commands:
+## Contributing
+We welcome contributions to improve the **Green Market Place**! Please follow these steps:
+1. Fork the repository.
+2. Create a new branch:
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+3. Commit changes:
+   ```bash
+   git commit -m "GMP-1234: Add your descriptive message here"
+   ```
+4. Push to your branch:
+   ```bash
+   git push origin feature/your-feature-name
+   ```
+5. Open a Pull Request.
 
-```
-docker start CONTAINER_ID
-docker stop CONTAINER_ID
-```
+---
 
-Replace `CONTAINER_ID` with the actual ID of the container, which can be retrieved using `docker ps` or `docker ps -a` for all containers.
+## License
+This project is open-source and available under the [MIT License](LICENSE).
 
-# Using Docker Compose
+---
 
-If you prefer to manage your Docker containers with Docker Compose, follow these instructions:
-
-## Build and Run with Docker Compose
-
-To build and run the container with Docker Compose, use the following commands:
-
-```
-docker-compose build
-docker-compose up
-```
-
-This will build and run the containers as defined in the `docker-compose.yml` file.
-
-## Stop Containers Managed by Docker Compose
-
-To stop the containers created by Docker Compose:
-
-```
-docker-compose down
-```
-
-This command stops and removes the containers, networks, and volumes defined in the `docker-compose.yml` file.
-
-# Running a Development Container
-
-For development purposes, you can build and run a development environment using a specific Docker Compose configuration.
-
-## Build the Development Container
-
-```
-docker-compose -f .devcontainer/docker-compose.yml build
-```
-
-This will build the container using the `docker-compose.dev.yml` configuration file.
-
-## Run the Development Container
-
-To start the development container, use one of the following options:
-
-```
-docker-compose -f .devcontainer/docker-compose.yml up
-```
-
-or
-
-```
-docker-compose -f .devcontainer/docker-compose.yml up --build
-```
-
-The `--build` flag forces a rebuild of the container before starting it.
-
-## Viewing Logs
-
-To view logs of a running container:
-
-```
-docker logs CONTAINER_ID
-```
-
-Replace `CONTAINER_ID` with the actual ID or name of the container.
-
-## Removing Unused Containers and Images
-
-To clean up unused containers and images, run:
-
-```
-docker system prune
-```
-
-This will remove stopped containers, unused networks, and dangling images.
+## Declaration
+"This project, **Green Market Place**, was developed as part of the **Specialization in Web Technology** course to fulfil its academic requirements."
